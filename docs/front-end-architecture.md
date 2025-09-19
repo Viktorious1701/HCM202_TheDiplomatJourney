@@ -4,14 +4,15 @@
 
 This is the single source of truth for all development.
 
-* **Framework:** React (`v18.x`)
-* **Language:** TypeScript (`v5.x`)
-* **Build Tool:** Vite
-* **Styling:** CSS Modules with a global stylesheet for the theme.
-* **State Management:** Zustand
-* **Routing:** React Router (`v6.x`)
-* **Testing:** Vitest and React Testing Library.
-* **Linting/Formatting:** ESLint and Prettier.
+*   **Framework:** React (`v18.x`)
+*   **Language:** TypeScript (`v5.x`)
+*   **Build Tool:** Vite
+*   **Backend as a Service:** Supabase
+*   **Styling:** CSS Modules with a global stylesheet for the theme.
+*   **State Management:** Zustand
+*   **Routing:** React Router (`v6.x`)
+*   **Testing:** Vitest and React Testing Library.
+*   **Linting/Formatting:** ESLint and Prettier.
 
 ## Section 2: Project Structure
 
@@ -31,44 +32,41 @@ This is the single source of truth for all development.
 ├── src/
 │   ├── assets/
 │   │   └── styles/
-│   │       ├── _variables.css  # CSS custom properties for theme
-│   │       ├── global.css      # Global styles, font imports
-│   │       └── reset.css       # CSS reset
+│   │       ├── _variables.css
+│   │       ├── global.css
+│   │       └── reset.css
 │   ├── components/
-│   │   ├── common/             # Reusable UI components
+│   │   ├── common/
 │   │   │   ├── Button/
-│   │   │   │   ├── Button.tsx
-│   │   │   │   └── Button.module.css
 │   │   │   └── Header/
-│   │   │       ├── Header.tsx
-│   │   │       └── Header.module.css
-│   │   └── game/               # Game-specific components
+│   │   └── game/
 │   │       ├── MapMarker/
 │   │       ├── NarrativeBox/
 │   │       └── LeaderboardRow/
 │   ├── data/
-│   │   └── story.json          # The core narrative script
+│   │   └── story.json
 │   ├── hooks/
-│   │   └── useGameTimer.ts     # Custom hook for the timer logic
+│   │   └── useGameTimer.ts
 │   ├── services/
-│   │   └── leaderboardService.ts # Logic for Local Storage interaction
+│   │   └── leaderboardService.ts # Logic for Supabase interaction
 │   ├── stores/
-│   │   └── gameStore.ts        # Zustand store for game state
+│   │   └── gameStore.ts
 │   ├── types/
-│   │   └── index.ts            # TypeScript types and interfaces
-│   ├── views/                  # Top-level page components
+│   │   └── index.ts
+│   ├── views/
 │   │   ├── StartScreen.tsx
 │   │   ├── WorldMapHub.tsx
 │   │   ├── MissionView.tsx
 │   │   └── LeaderboardView.tsx
-│   ├── App.tsx                 # Main app component with routing
-│   ├── main.tsx                # Application entry point
-│   └── vite-env.d.ts           # Vite TypeScript environment types
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── vite-env.d.ts
 ├── tests/
 │   ├── components/
 │   │   └── Button.test.tsx
 │   └── services/
 │       └── leaderboardService.test.ts
+├── .env.local                  # Supabase credentials
 ├── .eslintrc.cjs
 ├── .prettierrc
 ├── index.html
@@ -80,79 +78,17 @@ This is the single source of truth for all development.
 ## Section 3: Component Standards
 
 #### Component Template
-
-**File:** `src/components/common/ExampleComponent/ExampleComponent.tsx`
-
-```typescript
-import styles from './ExampleComponent.module.css';
-
-// 1. Define component props with TypeScript
-interface ExampleComponentProps {
-  title: string;
-  onClick: () => void;
-}
-
-// 2. Use functional component syntax with props typing
-export const ExampleComponent = ({ title, onClick }: ExampleComponentProps) => {
-  // 3. Component logic here
-
-  return (
-    // 4. Use the `styles` object for CSS class names
-    <div className={styles.wrapper}>
-      <h2 className={styles.title}>{title}</h2>
-      <button type="button" onClick={onClick} className={styles.button}>
-        Click Me
-      </button>
-    </div>
-  );
-};
-```
-
-**File:** `src/components/common/ExampleComponent/ExampleComponent.module.css`
-
-```css
-/* 5. All styles are scoped to the component */
-.wrapper {
-  padding: 16px;
-  border: 1px solid var(--ink-color);
-  background-color: var(--parchment-color);
-}
-
-.title {
-  color: var(--ink-color);
-  font-family: var(--font-primary);
-}
-
-.button {
-  /* Use theme variables defined in global.css */
-  background-color: var(--accent-color);
-  color: var(--parchment-color);
-  font-family: var(--font-secondary);
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: var(--highlight-color);
-}
-```
+(No changes to this section)
 
 #### Naming Conventions
-
-* **Component Folders:** `PascalCase` (e.g., `Button`)
-* **Component Files:** `PascalCase.tsx` (e.g., `Button.tsx`)
-* **CSS Module Files:** `PascalCase.module.css` (e.g., `Button.module.css`)
-* **Test Files:** `PascalCase.test.tsx` (e.g., `Button.test.tsx`)
-* **Hooks:** `camelCase` prefixed with `use` (e.g., `useGameTimer.ts`)
-* **Services & Stores:** `camelCase` (e.g., `leaderboardService.ts`, `gameStore.ts`)
+(No changes to this section)
 
 ## Section 4: State Management
 
 #### Store Structure
-
 **File:** `src/stores/gameStore.ts`
 
 #### State Management Template (Zustand Store)
-
 ```typescript
 import { create } from 'zustand';
 import storyData from '../data/story.json';
@@ -160,7 +96,8 @@ import { StoryNode } from '../types';
 
 interface GameState {
   currentNodeKey: string;
-  score: number;
+  globalSupport: number; // UPDATED
+  reputation: number;      // UPDATED
   startTime: number | null;
   endTime: number | null;
   history: string[];
@@ -168,7 +105,7 @@ interface GameState {
 
 interface GameActions {
   startGame: () => void;
-  makeChoice: (nextNodeKey: string, scoreValue?: number) => void;
+  makeChoice: (nextNodeKey: string, supportValue?: number, repValue?: number) => void; // UPDATED
   endGame: () => void;
   resetGame: () => void;
 }
@@ -176,12 +113,14 @@ interface GameActions {
 interface GameComputed {
   currentStoryNode: () => StoryNode;
   completionTime: () => number;
+  finalScore: () => number; // UPDATED
 }
 
 export const useGameStore = create<GameState & GameActions & GameComputed>((set, get) => ({
   // Initial State
   currentNodeKey: 'start',
-  score: 0,
+  globalSupport: 0,
+  reputation: 0,
   startTime: null,
   endTime: null,
   history: [],
@@ -191,14 +130,16 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
     set({
       startTime: Date.now(),
       endTime: null,
-      score: 0,
+      globalSupport: 0,
+      reputation: 0,
       currentNodeKey: 'start',
       history: ['start'],
     });
   },
-  makeChoice: (nextNodeKey, scoreValue = 0) => {
+  makeChoice: (nextNodeKey, supportValue = 0, repValue = 0) => {
     set((state) => ({
-      score: state.score + scoreValue,
+      globalSupport: state.globalSupport + supportValue,
+      reputation: state.reputation + repValue,
       currentNodeKey: nextNodeKey,
       history: [...state.history, nextNodeKey],
     }));
@@ -208,76 +149,66 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       set({ endTime: Date.now() });
     }
   },
-  resetGame: () => {
-    set({
-      currentNodeKey: 'start',
-      score: 0,
-      startTime: null,
-      endTime: null,
-      history: [],
-    });
-  },
+  resetGame: () => { /* ... */ },
 
   // Computed Properties (Getters)
   currentStoryNode: () => {
     return storyData[get().currentNodeKey] as StoryNode;
   },
-  completionTime: () => {
-    const { startTime, endTime } = get();
-    if (startTime && endTime) {
-      return (endTime - startTime) / 1000; // Return time in seconds
-    }
-    return 0;
+  completionTime: () => { /* ... */ },
+  finalScore: () => {
+    const { globalSupport, reputation } = get();
+    // Final Score = Global Support + (Reputation * 3)
+    return globalSupport + (reputation * 3);
   },
 }));
 ```
 
-## Section 5: API Integration (Local Storage Service)
+## Section 5: API Integration (Supabase Service)
 
 #### Service Template
-
 **File:** `src/services/leaderboardService.ts`
-
 ```typescript
+import { createClient } from '@supabase/supabase-js';
 import { LeaderboardEntry } from '../types';
 
-const LEADERBOARD_KEY = 'hoChiMinhGameLeaderboard';
-const MAX_ENTRIES = 10;
+// These credentials must be stored in environment variables (.env.local file)
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const getLeaderboard = (): LeaderboardEntry[] => {
-  try {
-    const rawData = localStorage.getItem(LEADERBOARD_KEY);
-    if (!rawData) {
-      return [];
-    }
-    const entries: LeaderboardEntry[] = JSON.parse(rawData);
-    return entries;
-  } catch (error) {
-    console.error("Failed to parse leaderboard data:", error);
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+const LEADERBOARD_TABLE = 'leaderboard';
+
+// Function to get the top 10 scores from the Supabase table
+export const getLeaderboard = async (): Promise<LeaderboardEntry[]> => {
+  const { data, error } = await supabase
+    .from(LEADERBOARD_TABLE)
+    .select('name, score, time')
+    .order('score', { ascending: false }) // Primary sort: score descending
+    .order('time', { ascending: true })   // Secondary sort: time ascending
+    .limit(10);
+
+  if (error) {
+    console.error('Error fetching leaderboard:', error);
     return [];
   }
+  return data || [];
 };
 
-export const addScore = (newEntry: LeaderboardEntry): LeaderboardEntry[] => {
-  const currentLeaderboard = getLeaderboard();
-  const updatedLeaderboard = [...currentLeaderboard, newEntry];
+// Function to add a new score to the Supabase table
+export const addScore = async (newEntry: LeaderboardEntry): Promise<LeaderboardEntry[] | null> => {
+  const { error } = await supabase
+    .from(LEADERBOARD_TABLE)
+    .insert([newEntry]);
 
-  updatedLeaderboard.sort((a, b) => {
-    if (a.score !== b.score) {
-      return b.score - a.score;
-    }
-    return a.time - b.time;
-  });
-
-  const finalLeaderboard = updatedLeaderboard.slice(0, MAX_ENTRIES);
-
-  try {
-    localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(finalLeaderboard));
-  } catch (error) {
-    console.error("Failed to save leaderboard data:", error);
+  if (error) {
+    console.error('Error adding score:', error);
+    return null;
   }
   
-  return finalLeaderboard;
+  // After adding, return the new top 10 list
+  return await getLeaderboard();
 };
 ```
 
@@ -378,8 +309,9 @@ describe('Button Component', () => {
 
 ## Section 9: Frontend Developer Standards
 
-* **Rule 1: Isolate Local Storage.** All interaction with `localStorage` **must** go through the `leaderboardService`.
-* **Rule 2: Centralized State.** All shared game state **must** be managed within the Zustand `gameStore`.
-* **Rule 3: Use Theme Variables.** All CSS values for colors, fonts, and spacing **must** use the `var(--variable-name)` syntax.
-* **Rule 4: Type Everything.** All component props, function arguments, and state variables **must** have explicit TypeScript types.
-* **Rule 5: Static Content in JSON.** All narrative text, choices, and image paths **must** reside in `story.json`.
+*   **Rule 1: Isolate Supabase.** All interaction with the Supabase client **must** go through the `leaderboardService`.
+*   **Rule 2: Centralized State.** All shared game state **must** be managed within the Zustand `gameStore`.
+*   **Rule 3: Use Theme Variables.** All CSS values **must** use the `var(--variable-name)` syntax.
+*   **Rule 4: Type Everything.** All component props, function arguments, and state variables **must** have explicit TypeScript types.
+*   **Rule 5: Static Content in JSON.** All narrative text, choices, and image paths **must** reside in `story.json`.
+*   **Rule 6: Secure Credentials.** Supabase URL and anon key **must** be stored in a `.env.local` file and accessed via `import.meta.env`. They must never be hardcoded in the source code.

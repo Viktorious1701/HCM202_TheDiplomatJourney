@@ -32,6 +32,7 @@ This document provides a detailed visual blueprint for the user interface of "Th
     2.  **Primary Image:** A single, powerful AI-generated historical image representing the game's theme.
     3.  **Introduction Text:** 2-3 sentences of introductory text in 'Playfair Display'.
     4.  **"Begin Journey" Button:** A prominent button styled with the accent color.
+    5.  **"View Leaderboard" Link:** A smaller, less prominent link below the main button.
 
 ```
 +----------------------------------------+
@@ -46,6 +47,7 @@ This document provides a detailed visual blueprint for the user interface of "Th
 |                                        |
 |           [ Begin Journey ]            |
 |                                        |
+|         < View Leaderboard >           |
 +----------------------------------------+
 ```
 
@@ -54,61 +56,70 @@ This document provides a detailed visual blueprint for the user interface of "Th
 *   **Layout:** Full-screen map with a persistent header.
 *   **Components:**
     1.  **Header:** A thin, dark bar (`--ink-color`) across the top.
-        *   **Left:** "Home" icon (Phosphor Icons, thin weight).
-        *   **Right:** "Global Support Score: [Score]" in 'Lato' font.
+        *   **Left:** "Leaderboard" icon/link.
+        *   **Right:** "Global Support: [Score]" in 'Lato' font. **Note:** The `Reputation` score is hidden from the player.
     2.  **World Map:** A vintage-style world map image.
-    3.  **Map Markers:** 2-3 interactive markers on the map.
-        *   **Default State:** A simple, thematic marker (e.g., a small red pin).
-        *   **Hover State:** Marker glows slightly, and a tooltip with the location name (e.g., "Paris") appears.
-        *   **Completed State:** Marker color changes to faded ink to show the mission is done.
+    3.  **Map Markers:** Interactive markers on the map.
+        *   **Default State:** A simple, thematic marker.
+        *   **Hover State:** Marker glows, and a tooltip with the location name appears.
+        *   **Completed State:** Marker is visually altered (e.g., greyed out) to show the mission is done.
+    4.  **"Knowledge Hub" Icon:** A persistent icon (e.g., a book) in a corner of the screen to open the presentation slides.
 
 ### **Screen 3: Mission View**
 
 *   **Layout:** Two-column on desktop; stacks to a single column on mobile.
 *   **Components:**
-    1.  **Header:** The persistent header remains visible.
+    1.  **Header:** The persistent header remains visible, showing the updated `Global Support` score.
     2.  **Image Column:** A dedicated space showing the AI-generated historical image for the current scenario.
     3.  **Narrative Column:**
-        *   **Narrative Box:** A container with a subtle border to resemble a separate piece of paper.
-        *   **Scenario Text:** The main story text in 'Playfair Display'.
-        *   **Choice Buttons:** 2-3 buttons displayed vertically, using the 'Lato' font.
+        *   **Narrative Box:** A container with a subtle border.
+        *   **Scenario Text:** The main story text.
+        *   **Choice Buttons:** 2-3 buttons displayed vertically. Choices are prefixed with a strategic hint (e.g., `(Chiến lược)`, `(Cơ hội)`) to guide the player's thinking without revealing the outcome.
 
 ```
 +----------------------------------------+
-| [Home Icon]      Score: [##]           |
+| [Leaderboard]  Global Support: [##]    |
 +----------------------------------------+
 |                  |                     |
-| +--------------+ |  "You are at a..   |
-| |              | |   ..meeting in     |
-| |  <Historic  | |   Paris. What do   |
-| |   Image>   | |   you do?"         |
+| +--------------+ |  "Jean, nhà xã hội |
+| |              | |   chủ nghĩa Pháp,  |
+| |  <Historic  | |   tiếp cận bạn..." |
+| |   Image>   | |                    |
 | |              | |                    |
-| +--------------+ |  [ Choice A ]      |
-|                  |  [ Choice B ]      |
+| +--------------+ |  [ (Chiến lược) Lập luận... ] |
+|                  |  [ (Cơ hội) Hứa hẹn...    ] |
 |                  |                     |
 +----------------------------------------+
 ```
 
 ### **Screen 4: Game Complete & Submit Score Screen**
 
-*   **Layout:** A single, centered column, similar to the Start Screen.
+*   **Layout:** A single, centered column.
 *   **Components:**
-    1.  **Title:** "Journey Complete" in H2 style.
+    1.  **Title:** "Journey Complete"
     2.  **Final Results Display:**
-        *   "Final Score: [Score]"
+        *   "Final Global Support: [Score]"
         *   "Completion Time: [Time]"
-    3.  **Name Input Form:**
-        *   A simple text label: "Enter Your Name:"
-        *   A text input field, styled to match the historical theme (e.g., an underlined input area).
-    4.  **"Save to Leaderboard" Button:** The primary action button.
+        *   **Note:** The final calculated score for the leaderboard is **not** shown here to maintain the mystery of the formula.
+    3.  **Name Input Form:** "Enter Your Name:" and a text input field.
+    4.  **"Submit to Leaderboard" Button:** The primary action button.
 
 ### **Screen 5: Leaderboard View**
 
-*   **Layout:** A single, centered list with a clear title.
+*   **Layout:** A single, centered list.
 *   **Components:**
-    1.  **Header:** The persistent header remains visible.
-    2.  **Title:** "Leaderboard" in H2 style.
+    1.  **Header:** A simplified header, perhaps just a "Back to Start" button.
+    2.  **Title:** "Leaderboard"
     3.  **Leaderboard List:** A formatted list or simple table.
-        *   **Columns:** Rank | Name | Score | Time
-        *   Each row will be a `LeaderboardRow` component.
+        *   **Columns:** Rank | Name | Final Score
+        *   **Note:** Only the final, calculated score is shown. The `Global Support`, `Reputation`, and `Time` components are hidden to make the ranking feel more impactful.
     4.  **"Play Again" Button:** A button to navigate the user back to the Start Screen.
+
+### **Screen 6: Knowledge Hub (Presentation Slides)**
+
+*   **Layout:** An overlay modal or a separate view that appears on top of the map.
+*   **Components:**
+    1.  **Title:** "Knowledge Hub: The Necessity of International Solidarity"
+    2.  **Content Area:** A scrollable or paginated area that displays the text and images for each "slide."
+    3.  **Navigation:** "Previous" and "Next" buttons to navigate between slides.
+    4.  **"Close" Button:** To return the player to the World Map Hub.
