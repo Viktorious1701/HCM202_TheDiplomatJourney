@@ -1,17 +1,6 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { HeroHeader } from './header'
-
-// Simple Link component for Vite/React (replaces Next.js Link)
-const Link = ({ href, children, className, ...props }: { 
-  href: string; 
-  children: React.ReactNode; 
-  className?: string;
-}) => (
-  <a href={href} className={className} {...props}>
-    {children}
-  </a>
-)
 
 export default function HeroSection() {
     return (
@@ -30,7 +19,7 @@ export default function HeroSection() {
                                         asChild
                                         size="lg"
                                         className="px-5 text-base">
-                                        <Link href="#link">
+                                        <Link to="#link">
                                             <span className="text-nowrap">Begin Journey</span>
                                         </Link>
                                     </Button>
@@ -40,7 +29,7 @@ export default function HeroSection() {
                                         size="lg"
                                         variant="ghost"
                                         className="px-5 text-base">
-                                        <Link href="#link">
+                                        <Link to="#link">
                                             <span className="text-nowrap">Learn About HCM</span>
                                         </Link>
                                     </Button>

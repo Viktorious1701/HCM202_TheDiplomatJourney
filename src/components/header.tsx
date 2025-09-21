@@ -1,22 +1,33 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Logo } from '@/components/logo'
 import { Menu, X } from 'lucide-react'
 
-// Simple Link component for Vite/React (replaces Next.js Link)
-const Link = ({ href, children, className, ...props }: { 
+// Custom navigation link component that handles both router and anchor links
+const NavLink = ({ href, children, className, ...props }: { 
   href: string; 
   children: React.ReactNode; 
   className?: string;
   'aria-label'?: string;
-}) => (
-  <a href={href} className={className} {...props}>
-    {children}
-  </a>
-)
+}) => {
+  // If it starts with #, use regular anchor, otherwise use router Link
+  if (href.startsWith('#')) {
+    return (
+      <a href={href} className={className} {...props}>
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link to={href} className={className} {...props}>
+      {children}
+    </Link>
+  )
+}
 
 const menuItems = [
     { name: 'Missions', href: '#missions' },
-    { name: 'Timeline', href: '#timeline' },
+    { name: 'Timeline', href: '/timeline' },
     { name: 'Biography', href: '#biography' },
     { name: 'Learn More', href: '#about' },
 ]
@@ -32,7 +43,7 @@ export const HeroHeader = () => {
                     <div className="relative flex items-center justify-between py-3 lg:py-4">
                         <div className="flex items-center">
                             <Link
-                                href="/"
+                                to="/"
                                 aria-label="home"
                                 className="flex items-center space-x-2">
                                 <Logo />
@@ -51,11 +62,11 @@ export const HeroHeader = () => {
                             <ul className="flex gap-8 text-sm">
                                 {menuItems.map((item, index) => (
                                     <li key={index}>
-                                        <Link
+                                        <NavLink
                                             href={item.href}
                                             className="text-muted-foreground hover:text-accent-foreground block duration-150">
                                             <span>{item.name}</span>
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                 ))}
                             </ul>
@@ -66,11 +77,11 @@ export const HeroHeader = () => {
                                 <ul className="space-y-6 text-base">
                                     {menuItems.map((item, index) => (
                                         <li key={index}>
-                                            <Link
+                                            <NavLink
                                                 href={item.href}
                                                 className="text-muted-foreground hover:text-accent-foreground block duration-150">
                                                 <span>{item.name}</span>
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                     ))}
                                 </ul>
