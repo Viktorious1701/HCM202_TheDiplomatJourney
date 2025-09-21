@@ -23,7 +23,7 @@
   "nhiemVuParis": {
     "tieuDe": "Nhiệm vụ tại Paris: Giai đoạn 1 - Tạo Dựng Ảnh Hưởng",
     "vanBan": "Bạn bước vào một quán cà phê Paris đầy khói thuốc, nơi các nhà cách mạng từ khắp nơi trên thế giới đang tụ tập. Không khí vừa sôi nổi vừa căng thẳng. Một người phục vụ hỏi bạn, 'Monsieur, ngài dùng gì?'",
-    "hinhAnh": "/assets/images/paris-mission-socialist-cafe",
+    "hinhAnh": "/assets/images/paris-cafe-intro.jpg",
     "luaChon": [
       {
         "vanBan": "[Flavor Choice] Một ly cà phê đen, thật đậm đặc.",
