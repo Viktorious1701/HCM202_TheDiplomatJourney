@@ -23,7 +23,7 @@
   "nhiemVuParis": {
     "tieuDe": "Nhiệm vụ tại Paris: Giai đoạn 1 - Tạo Dựng Ảnh Hưởng",
     "vanBan": "Bạn bước vào một quán cà phê Paris đầy khói thuốc, nơi các nhà cách mạng từ khắp nơi trên thế giới đang tụ tập. Không khí vừa sôi nổi vừa căng thẳng. Một người phục vụ hỏi bạn, 'Monsieur, ngài dùng gì?'",
-    "hinhAnh": "/assets/images/missions/paris-cafe-intro.jpg",
+    "hinhAnh": "/assets/images/paris-mission-socialist-cafe",
     "luaChon": [
       {
         "vanBan": "[Flavor Choice] Một ly cà phê đen, thật đậm đặc.",
@@ -38,7 +38,7 @@
   "parisMissionA": {
     "tieuDe": "Tiếng Nói Chung",
     "vanBan": "Khi bạn đang ổn định chỗ ngồi, một đại biểu từ Algeria đứng lên, giọng đầy căm phẫn, tố cáo tội ác của thực dân Pháp tại quê hương ông. Cả phòng im lặng. Đây là một khoảnh khắc quan trọng. Bạn sẽ làm gì?",
-    "hinhAnh": "/assets/images/missions/paris-mission-activists.jpg",
+    "hinhAnh": "/assets/images/paris-mission-activists.jpg",
     "hint": {
         "tieuDe": "Trích Sổ Tay Cách Mạng",
         "vanBan": "Nguyễn Ái Quốc đã viết: 'Muốn người ta giúp cho, thì trước mình phải tự giúp lấy mình đã.' Đồng thời, Người cũng nhấn mạnh rằng kẻ thù chính không phải là người dân Pháp, mà là chủ nghĩa đế quốc Pháp."
@@ -69,7 +69,7 @@
   "parisMissionB_Normal": {
     "tieuDe": "Giai đoạn 2: Cuộc Gặp Thân Mật",
     "vanBan": "Vì bài phát biểu đầy tính chiến lược của bạn, Jean, một nhà xã hội chủ nghĩa có ảnh hưởng, đã chủ động mời bạn đến một cuộc gặp riêng. Ông ta nói: 'Tôi bị thuyết phục bởi tầm nhìn của anh. Giờ hãy nói về hành động cụ thể. Chúng tôi nên giúp các anh như thế nào?'",
-    "hinhAnh": "/assets/images/missions/paris-socialist-meeting.jpg",
+    "hinhAnh": "/assets/images/paris-socialist-meeting.jpg",
     "luaChon": [
         {
             "vanBan": "Yêu cầu họ giúp vận động chính trị, nâng cao nhận thức trong công nhân Pháp về bản chất của chủ nghĩa thực dân.",
@@ -84,7 +84,7 @@
   "parisMissionB_HardMode": {
     "tieuDe": "Giai đoạn 2: Cuộc Gặp Thử Thách",
     "vanBan": "Jean, nhà xã hội chủ nghĩa, tiếp cận bạn với vẻ hoài nghi. 'Bài phát biểu của anh rất cảm xúc, nhưng nó đổ lỗi cho cả nước Pháp,' ông ta nói. 'Hãy cho tôi một lý do thực tế để tin rằng việc ủng hộ các anh sẽ không làm hại đến chính công nhân của chúng tôi.'",
-    "hinhAnh": "/assets/images/missions/paris-skeptical-meeting.jpg",
+    "hinhAnh": "/assets/images/paris-skeptical-meeting.jpg",
     "luaChon": [
         {
             "vanBan": "Xin lỗi nếu có sự hiểu lầm và giải thích rằng kẻ thù chung là giới tư bản, không phải người lao động Pháp.",
@@ -117,7 +117,7 @@
   "parisMissionC": {
     "tieuDe": "Giai đoạn 3: Nối Lại Cội Nguồn",
     "vanBan": "Bạn gặp gỡ cộng đồng Việt kiều. Họ nói: 'Chúng tôi chỉ là những người lao động bình thường, làm sao có thể đóng góp?'. Bạn sẽ làm gì?",
-    "hinhAnh": "/assets/images/missions/paris-viet-kieu-cafe.jpg",
+    "hinhAnh": "/assets/images/paris-viet-kieu-cafe.jpg",
     "luaChon": [
       {
         "vanBan": "Đề nghị thành lập một 'Hội Ái hữu' để tổ chức các hoạt động văn hóa, giúp đỡ lẫn nhau.",
@@ -154,7 +154,7 @@
   "nhiemVuMoscowA": {
     "tieuDe": "Giai đoạn 1: Thử Thách Tư Tưởng",
     "vanBan": "Bạn đã đến Mát-xcơ-va. Tại một phiên họp của Quốc tế Cộng sản, một cán bộ cấp cao nhìn bạn và hỏi: 'Thưa đồng chí, nguồn lực của chúng tôi có hạn. Tại sao chúng tôi phải ưu tiên cuộc đấu tranh ở một thuộc địa xa xôi như Đông Dương thay vì các cuộc đấu tranh cấp bách hơn ngay tại châu Âu?'",
-    "hinhAnh": "/assets/images/missions/moscow-comintern-meeting.jpg",
+    "hinhAnh": "/assets/images/moscow-comintern-meeting.jpg",
     "hint": {
       "tieuDe": "Trích Sổ Tay Cách Mạng",
       "vanBan": "Chủ nghĩa Lênin coi các phong trào giải phóng dân tộc ở thuộc địa là một 'hậu phương' và là một 'đồng minh trực tiếp' của cách mạng vô sản ở chính quốc. Làm suy yếu chủ nghĩa đế quốc ở thuộc địa cũng chính là làm suy yếu nó ở trung tâm."
@@ -195,7 +195,7 @@
   "nhiemVuMoscowB_Normal": {
     "tieuDe": "Giai đoạn 2: Hoạch Định Chiến Lược",
     "vanBan": "Vị cán bộ gật đầu, có vẻ hài lòng. 'Tầm nhìn của đồng chí rất rõ ràng,' ông ta nói. 'Bây giờ hãy bàn về hành động. Chúng tôi có thể cung cấp vũ khí, tài liệu tuyên truyền, hoặc huấn luyện cán bộ. Theo đồng chí, đâu là ưu tiên hàng đầu để xây dựng nền tảng vững chắc cho cách mạng ở Đông Dương?'",
-    "hinhAnh": "/assets/images/missions/moscow-planning-map.jpg",
+    "hinhAnh": "/assets/images/moscow-planning-map.jpg",
     "hint": {
       "tieuDe": "Trích Sổ Tay Cách Mạng",
       "vanBan": "Tư tưởng Hồ Chí Minh nhấn mạnh: 'Cán bộ là cái gốc của mọi công việc,' và 'Muôn việc thành công hoặc thất bại, đều do cán bộ tốt hoặc kém.' Việc xây dựng đội ngũ cán bộ cốt cán luôn là ưu tiên hàng đầu."
@@ -218,7 +218,7 @@
   "nhiemVuMoscowB_HardMode": {
     "tieuDe": "Giai đoạn 2: Cuộc Thẩm Vấn",
     "vanBan": "Vị cán bộ tỏ ra chưa bị thuyết phục. 'Lý thuyết của đồng chí có vẻ chưa vững,' ông ta nói. 'Hãy nói cho tôi về kế hoạch thực tế. Giả sử chúng tôi cho các anh một chút viện trợ. Các anh sẽ yêu cầu gì trước tiên: vũ khí, tài liệu, hay con người? Sự lựa chọn này sẽ cho chúng tôi thấy các anh có thực sự hiểu về việc xây dựng một cuộc cách mạng hay không.'",
-    "hinhAnh": "/assets/images/missions/moscow-interrogation.jpg",
+    "hinhAnh": "/assets/images/moscow-interrogation.jpg",
     "hint": {
       "tieuDe": "Trích Sổ Tay Cách Mạng",
       "vanBan": "Tư tưởng Hồ Chí Minh nhấn mạnh: 'Cán bộ là cái gốc của mọi công việc,' và 'Muôn việc thành công hoặc thất bại, đều do cán bộ tốt hoặc kém.' Việc xây dựng đội ngũ cán bộ cốt cán luôn là ưu tiên hàng đầu."
@@ -259,7 +259,7 @@
   "moscowMissionC": {
     "tieuDe": "Giai đoạn 3: Cuộc Tranh Luận Chớp Nhoáng",
     "vanBan": "Buổi họp tiếp tục với một cuộc tranh luận nảy lửa. Một nhóm Tờ-rốt-kít (Trotskyists) đứng lên, thách thức đường lối của bạn. 'Các bạn phải trả lời dứt khoát!' họ nói. 'Hãy cho chúng tôi biết quan điểm của các bạn về những vấn đề này.'",
-    "hinhAnh": "/assets/images/missions/moscow-debate.jpg",
+    "hinhAnh": "/assets/images/moscow-debate.jpg",
     "loaiNhiemVu": "tranhLuan",
     "cauHoiTranhLuan": [
       {
@@ -302,7 +302,7 @@
   "nhiemVuQuangChauA": {
     "tieuDe": "Giai đoạn 1: Lưỡng Lự Tình Báo",
     "vanBan": "Bạn đang trong một cuộc họp bí mật với các nhà cách mạng Trung Quốc tại Quảng Châu. Họ nói: 'Chúng tôi sắp có một chiến dịch lớn. Nếu đồng chí chia sẻ thông tin về các đồn bốt và kế hoạch của Pháp ở biên giới, nó sẽ giúp chúng tôi rất nhiều. Nhưng chúng tôi hiểu điều đó có thể gây nguy hiểm cho mạng lưới của đồng chí.'",
-    "hinhAnh": "/assets/images/missions/guangzhou-secret-meeting.jpg",
+    "hinhAnh": "/assets/images/guangzhou-secret-meeting.jpg",
     "hint": { "tieuDe": "Trích Sổ Tay Cách Mạng", "vanBan": "Tư tưởng Hồ Chí Minh nhấn mạnh rằng các cuộc cách mạng ở các nước thuộc địa có mối quan hệ 'môi hở răng lạnh'. Giúp bạn cũng chính là tự giúp mình. Xây dựng lòng tin chiến lược, dù có rủi ro, là nền tảng cho sự hợp tác lâu dài và thành công chung." },
     "luaChon": [
       { "vanBan": "(Tin tưởng hoàn toàn) Chia sẻ toàn bộ thông tin tình báo quan trọng. Sự thành công của họ cũng sẽ là thành công của chúng ta.", "nutTiepTheo": "ketQuaTinTuongQuangChau" },
@@ -313,11 +313,11 @@
   "ketQuaTinTuongQuangChau": { "tieuDe": "Liên Minh Sắt Son", "vanBan": "Hành động của bạn đã thể hiện một sự tin tưởng tuyệt đối. Các nhà cách mạng Trung Quốc vô cùng cảm kích và cam kết sẽ là đồng minh trung thành nhất của bạn.\n\n**Kết quả:**\n- **Global Support +10**\n- **Reputation +40**", "hinhAnh": "/assets/images/outcomes/guangzhou-alliance.jpg", "luaChon": [ { "vanBan": "Tiếp tục...", "nutTiepTheo": "nhiemVuQuangChauB" } ] },
   "ketQuaThanTrongQuangChau": { "tieuDe": "Mối Quan Hệ Xã Giao", "vanBan": "Họ cảm ơn bạn vì thông tin, nhưng họ cũng ngầm hiểu rằng bạn không hoàn toàn tin tưởng họ. Mối quan hệ của các bạn vẫn tốt đẹp, nhưng nó thiếu đi sự sâu sắc.\n\n**Kết quả:**\n- **Global Support +20**\n- **Reputation +5**", "hinhAnh": "/assets/images/outcomes/guangzhou-polite.jpg", "luaChon": [ { "vanBan": "Tiếp tục...", "nutTiepTheo": "nhiemVuQuangChauB" } ] },
   "ketQuaTuChoiQuangChau": { "tieuDe": "Bức Tường Nghi Ngờ", "vanBan": "Sự từ chối đã tạo ra một bức tường nghi ngờ. Họ sẽ không còn coi bạn là một đồng minh thân cận.\n\n**Kết quả:**\n- **Global Support +0**\n- **Reputation -25**", "hinhAnh": "/assets/images/outcomes/guangzhou-mistrust.jpg", "luaChon": [ { "vanBan": "Tiếp tục...", "nutTiepTheo": "nhiemVuQuangChauB" } ] },
-  "nhiemVuQuangChauB": { "tieuDe": "Giai đoạn 2: Sự Hy Sinh Vì Đồng Minh", "vanBan": "Tin khẩn! Một chuyến hàng viện trợ y tế quý giá vừa đến, nhưng chỉ bằng một nửa so với dự kiến. Cùng lúc đó, bạn nhận được tin rằng một nhóm cách mạng Lào anh em đang bị dịch bệnh hoành hành. Nhiệm vụ sắp tới của nhóm bạn cũng rất nguy hiểm và cần số thuốc này.", "hinhAnh": "/assets/images/missions/guangzhou-medical-supplies.jpg", "hint": { "tieuDe": "Trích Sổ Tay Cách Mạng", "vanBan": "Hồ Chí Minh xem cách mạng ba nước Đông Dương là một thể thống nhất. Người từng nói: 'Giúp bạn là tự giúp mình.' Sự hy sinh vì một đồng minh trong lúc khó khăn nhất sẽ tạo ra một tình đồng chí còn quý hơn bất kỳ lợi ích vật chất nào." }, "luaChon": [ { "vanBan": "(Ưu tiên nhiệm vụ) Giữ lại toàn bộ số thuốc. Sinh mạng của đồng bào ta là trên hết.", "nutTiepTheo": "ketQuaUuTienQuangChau" }, { "vanBan": "(Chia sẻ rủi ro) Chia một nửa số thuốc cho nhóm cách mạng Lào. Chúng ta phải cứu họ, dù có thể phải hy sinh.", "nutTiepTheo": "ketQuaCuuVienQuangChau" }, { "vanBan": "(Vận động quốc tế) [Yêu cầu Global Support > 80] Sử dụng uy tín của mình để gửi một bức điện khẩn, kêu gọi TẤT CẢ các phong trào trong khu vực cùng quyên góp cho nhóm Lào.", "nutTiepTheo": "ketQuaVanDongQuangChau", "yeuCau": { "globalSupport": 80 } } ] },
+  "nhiemVuQuangChauB": { "tieuDe": "Giai đoạn 2: Sự Hy Sinh Vì Đồng Minh", "vanBan": "Tin khẩn! Một chuyến hàng viện trợ y tế quý giá vừa đến, nhưng chỉ bằng một nửa so với dự kiến. Cùng lúc đó, bạn nhận được tin rằng một nhóm cách mạng Lào anh em đang bị dịch bệnh hoành hành. Nhiệm vụ sắp tới của nhóm bạn cũng rất nguy hiểm và cần số thuốc này.", "hinhAnh": "/assets/images/guangzhou-medical-supplies.jpg", "hint": { "tieuDe": "Trích Sổ Tay Cách Mạng", "vanBan": "Hồ Chí Minh xem cách mạng ba nước Đông Dương là một thể thống nhất. Người từng nói: 'Giúp bạn là tự giúp mình.' Sự hy sinh vì một đồng minh trong lúc khó khăn nhất sẽ tạo ra một tình đồng chí còn quý hơn bất kỳ lợi ích vật chất nào." }, "luaChon": [ { "vanBan": "(Ưu tiên nhiệm vụ) Giữ lại toàn bộ số thuốc. Sinh mạng của đồng bào ta là trên hết.", "nutTiepTheo": "ketQuaUuTienQuangChau" }, { "vanBan": "(Chia sẻ rủi ro) Chia một nửa số thuốc cho nhóm cách mạng Lào. Chúng ta phải cứu họ, dù có thể phải hy sinh.", "nutTiepTheo": "ketQuaCuuVienQuangChau" }, { "vanBan": "(Vận động quốc tế) [Yêu cầu Global Support > 80] Sử dụng uy tín của mình để gửi một bức điện khẩn, kêu gọi TẤT CẢ các phong trào trong khu vực cùng quyên góp cho nhóm Lào.", "nutTiepTheo": "ketQuaVanDongQuangChau", "yeuCau": { "globalSupport": 80 } } ] },
   "ketQuaUuTienQuangChau": { "tieuDe": "Thắng Lợi Ích Kỷ", "vanBan": "Nhiệm vụ của bạn đã thành công rực rỡ, nhưng tin tức về việc nhóm cách mạng Lào bị tiêu diệt đã lan đi. Bạn bị coi là một người chỉ biết đến lợi ích của riêng mình.\n\n**Kết quả:**\n- **Global Support +30**\n- **Reputation -40**", "luaChon": [ { "vanBan": "Hoàn thành nhiệm vụ...", "nutTiepTheo": "banDoTheGioi" } ] },
   "ketQuaCuuVienQuangChau": { "tieuDe": "Tình Đồng Chí Bất Diệt", "vanBan": "Nhiệm vụ của bạn gặp nhiều khó khăn và chịu tổn thất. Tuy nhiên, hành động của bạn đã cứu sống phong trào cách mạng Lào và tạo ra một mối liên minh không thể phá vỡ.\n\n**Kết quả:**\n- **Global Support -20**\n- **Reputation +50**", "luaChon": [ { "vanBan": "Hoàn thành nhiệm vụ...", "nutTiepTheo": "banDoTheGioi" } ] },
   "ketQuaVanDongQuangChau": { "tieuDe": "Nhà Lãnh Đạo Khu Vực", "vanBan": "Lời kêu gọi của bạn đã huy động được sự ủng hộ từ nhiều nhóm khác. Nhóm Lào được cứu sống, và bạn được công nhận là một nhà lãnh đạo có tầm nhìn, có khả năng đoàn kết toàn khu vực.\n\n**Kết quả:**\n- **Global Support -10**\n- **Reputation +60**", "hinhAnh": "/assets/images/outcomes/guangzhou-regional-leader.jpg", "luaChon": [ { "vanBan": "Hoàn thành nhiệm vụ!", "nutTiepTheo": "banDoTheGioi" } ] },
-  "nhiemVuPacBo": { "tieuDe": "Giai đoạn cuối: Về Nguồn", "vanBan": "Nhiều năm sau, bạn đã trở về Pác Bó. Bác Hồ quay sang bạn và nói: 'Chú đã đi một vòng trái đất. Bây giờ là lúc những nỗ lực đó đơm hoa kết trái. Chúng ta cần một quyết định cuối cùng để thống nhất toàn dân tộc. Theo chú, chúng ta nên làm gì?'", "hinhAnh": "/assets/images/missions/pac-bo-meeting.jpg", "hint": { "tieuDe": "Trích Sổ Tay Cách Mạng", "vanBan": "Để tập hợp sức mạnh toàn dân tộc, Hồ Chí Minh chủ trương thành lập một Mặt trận dân tộc thống nhất rộng rãi. Tên gọi và cương lĩnh của Mặt trận phải đặt lợi ích của Tổ quốc lên trên hết, tạm gác lại các mục tiêu giai cấp." }, "luaChon": [ { "vanBan": "(Chiến lược) Đề xuất thành lập Mặt trận Việt Minh, với cương lĩnh rõ ràng: 'Đoàn kết tất cả các tầng lớp nhân dân...để cùng nhau giải phóng dân tộc.'", "nutTiepTheo": "ketQuaVietMinh" }, { "vanBan": "(Uy tín) [Yêu cầu Reputation > 60] Dùng uy tín quốc tế của bạn để kêu gọi một sự hỗ trợ quân sự cuối cùng và quyết định.", "nutTiepTheo": "ketQuaUyTin", "yeuCau": { "reputation": 60 } }, { "vanBan": "(Nóng vội) Cho rằng thời cơ đã chín muồi, đề xuất phát động một cuộc tổng khởi nghĩa vũ trang ngay lập tức.", "nutTiepTheo": "ketQuaNongVoi" } ] },
+  "nhiemVuPacBo": { "tieuDe": "Giai đoạn cuối: Về Nguồn", "vanBan": "Nhiều năm sau, bạn đã trở về Pác Bó. Bác Hồ quay sang bạn và nói: 'Chú đã đi một vòng trái đất. Bây giờ là lúc những nỗ lực đó đơm hoa kết trái. Chúng ta cần một quyết định cuối cùng để thống nhất toàn dân tộc. Theo chú, chúng ta nên làm gì?'", "hinhAnh": "/assets/images/pac-bo-meeting.jpg", "hint": { "tieuDe": "Trích Sổ Tay Cách Mạng", "vanBan": "Để tập hợp sức mạnh toàn dân tộc, Hồ Chí Minh chủ trương thành lập một Mặt trận dân tộc thống nhất rộng rãi. Tên gọi và cương lĩnh của Mặt trận phải đặt lợi ích của Tổ quốc lên trên hết, tạm gác lại các mục tiêu giai cấp." }, "luaChon": [ { "vanBan": "(Chiến lược) Đề xuất thành lập Mặt trận Việt Minh, với cương lĩnh rõ ràng: 'Đoàn kết tất cả các tầng lớp nhân dân...để cùng nhau giải phóng dân tộc.'", "nutTiepTheo": "ketQuaVietMinh" }, { "vanBan": "(Uy tín) [Yêu cầu Reputation > 60] Dùng uy tín quốc tế của bạn để kêu gọi một sự hỗ trợ quân sự cuối cùng và quyết định.", "nutTiepTheo": "ketQuaUyTin", "yeuCau": { "reputation": 60 } }, { "vanBan": "(Nóng vội) Cho rằng thời cơ đã chín muồi, đề xuất phát động một cuộc tổng khởi nghĩa vũ trang ngay lập tức.", "nutTiepTheo": "ketQuaNongVoi" } ] },
   "ketQuaVietMinh": { "tieuDe": "Sức Mạnh Toàn Dân Tộc", "vanBan": "Một quyết định lịch sử! Đề xuất của bạn hoàn toàn phù hợp với tư tưởng của Bác. Mặt trận Việt Minh ra đời, trở thành ngọn cờ tập hợp sức mạnh của toàn dân, dẫn đến thành công của Cách mạng tháng Tám.\n\n**Kết quả:**\n- **Victory Points +100**", "hinhAnh": "/assets/images/outcomes/viet-minh-thanh-lap.jpg", "luaChon": [ { "vanBan": "Xem kết quả cuối cùng...", "nutTiepTheo": "ketThucGame" } ] },
   "ketQuaUyTin": { "tieuDe": "Sức Mạnh Từ Bạn Bè Quốc Tế", "vanBan": "Lời kêu gọi của bạn đã được đáp lại. Các đồng minh quốc tế đồng ý cung cấp một sự hỗ trợ quyết định. Con đường đến thắng lợi trở nên ngắn hơn rất nhiều nhờ vào tình đoàn kết mà bạn đã dày công xây dựng.\n\n**Kết quả:**\n- **Victory Points +150**", "hinhAnh": "/assets/images/outcomes/international-support.jpg", "luaChon": [ { "vanBan": "Xem kết quả cuối cùng...", "nutTiepTheo": "ketThucGame" } ] },
   "ketQuaNongVoi": { "tieuDe": "Thất Bại Vì Thiếu Chuẩn Bị", "vanBan": "Hành động nóng vội của bạn đã dẫn đến tổn thất nặng nề. Cuộc khởi nghĩa bị đàn áp. Bạn đã không sử dụng sức mạnh đoàn kết một cách khôn ngoan.\n\n**Kết quả:**\n- **Victory Points +0**", "hinhAnh": "/assets/images/outcomes/failed-uprising.jpg", "luaChon": [ { "vanBan": "Xem kết quả cuối cùng...", "nutTiepTheo": "ketThucGame" } ] },

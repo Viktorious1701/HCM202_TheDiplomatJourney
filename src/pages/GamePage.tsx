@@ -7,22 +7,39 @@ export function GamePage() {
   const currentNodeKey = useGameStore((state) => state.currentNodeKey);
   const currentNode = useGameStore((state) => state.currentStoryNode());
 
-  // UPDATED: More specific rendering logic
+  // This logic determines which full-screen view to render.
   const renderCurrentView = () => {
     switch (currentNodeKey) {
       case 'batDau':
         return <StartScreen />;
+
       case 'banDoTheGioi':
         return <WorldMapHub />;
+
+      // If the current node has choices, it's a mission scenario.
       default:
-        // If the node has choices, it's a mission view.
         if (currentNode?.luaChon) {
           return <MissionView />;
         }
-        // Fallback for the end of the game.
-        return <div>Journey Complete! (For now)</div>;
+        
+        // This will be the end game screen.
+        // We will create a dedicated component for this in a later story.
+        if (currentNodeKey === 'ketThucGame') {
+           return <div>GAME COMPLETE! Final Score Page.</div>
+        }
+        
+        // Fallback for any other state
+        return <div>Loading or unknown state...</div>;
     }
   };
 
-  return <div>{renderCurrentView()}</div>;
+  return (
+    <div>
+      {/* 
+        A Header component will be added in a future story 
+        to display persistent info like scores.
+      */}
+      {renderCurrentView()}
+    </div>
+  );
 }
