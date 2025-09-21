@@ -31,7 +31,7 @@ export default function HeroSection({ onBeginJourney }: HeroSectionProps) {
                                         className="px-5 text-base">
                                         <Link to="#link">
                                             <span className="text-nowrap">Learn About HCM</span>
-                                        </a>
+                                        </Link>
                                     </Button>
                                 </div>
                             </div>
