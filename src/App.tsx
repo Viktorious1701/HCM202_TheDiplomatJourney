@@ -1,25 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
+// path: the-diplomats-journey/src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeroSection from './components/hero-section';
-import TimelinePage from './pages/TimelinePage';
-import { useState } from 'react';
+import { GamePage } from './pages/GamePage';
 
 function App() {
-  // We introduce a state to track which view is active.
-  const [currentView, setCurrentView] = useState('hero');
-
-  const handleBeginJourney = () => {
-    // This function will be called by the button to switch the view.
-    setCurrentView('game');
-  };
-
   return (
     <Router>
       <div className="min-h-screen bg-background">
         <Routes>
           <Route path="/" element={<HeroSection />} />
-          <Route path="/timeline" element={<TimelinePage />} />
+          <Route path="/game" element={<GamePage />} />
+          {/* Add other main pages like Timeline and Biography here if they become full pages */}
         </Routes>
       </div>
     </Router>
