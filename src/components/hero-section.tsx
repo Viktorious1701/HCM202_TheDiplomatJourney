@@ -2,6 +2,10 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { HeroHeader } from './header'
 
+interface HeroSectionProps {
+  onBeginJourney: () => void;
+}
+
 export default function HeroSection({ onBeginJourney }: HeroSectionProps) {
     return (
         <>
