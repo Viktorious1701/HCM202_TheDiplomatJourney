@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useGameStore } from './stores/gameStore';
+import { MissionView } from './views/MissionView';
+import { StartScreen } from './views/StartScreen';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const currentNodeKey = useGameStore((state) => state.currentNodeKey);
+  const currentNode = useGameStore((state) => state.currentStoryNode());
+
+  // This is a simple, state-based router.
+  // Full routing with URLs will be added in a later story.
+  const renderCurrentView = () => {
+    // Show the StartScreen only when we are on the 'batDau' node.
+    if (currentNodeKey === 'batDau') {
+      return <StartScreen />;
+    }
+
+    // For any other node that has choices, we are in a mission.
+    if (currentNode?.luaChon) {
+      return <MissionView />;
+    }
+
+    // This is a fallback for the end of the game or other states
+    // without choices. We'll build the proper End Screen in a later story.
+    return <div>Journey Complete! (For now)</div>;
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      {renderCurrentView()}
+    </div>
+  );
 }
 
-export default App
+export default App;
