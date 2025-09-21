@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeroSection from './components/hero-section';
 import TimelinePage from './pages/TimelinePage';
+import { useState } from 'react';
 
 function App() {
   // We introduce a state to track which view is active.
