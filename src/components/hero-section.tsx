@@ -1,10 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { HeroHeader } from './header';
-
-// This component now accepts a prop: a function to call when the button is clicked.
-interface HeroSectionProps {
-  onBeginJourney: () => void;
-}
+import { Link } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
+import { HeroHeader } from './header'
 
 export default function HeroSection({ onBeginJourney }: HeroSectionProps) {
     return (
@@ -22,19 +18,18 @@ export default function HeroSection({ onBeginJourney }: HeroSectionProps) {
                                     {/* UPDATED: This button now uses the onClick handler */}
                                     <Button
                                         size="lg"
-                                        className="px-5 text-base"
-                                        onClick={onBeginJourney}
-                                    >
-                                        <span className="text-nowrap">Begin Journey</span>
+                                        className="px-5 text-base">
+                                        <Link to="#link">
+                                            <span className="text-nowrap">Begin Journey</span>
+                                        </Link>
                                     </Button>
                                     
                                     <Button
                                         key={2}
                                         size="lg"
                                         variant="ghost"
-                                        className="px-5 text-base"
-                                    >
-                                        <a href="#link">
+                                        className="px-5 text-base">
+                                        <Link to="#link">
                                             <span className="text-nowrap">Learn About HCM</span>
                                         </a>
                                     </Button>
