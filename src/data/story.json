@@ -57,7 +57,7 @@
   "ketQuaPhanTichParisA": {
     "tieuDe": "Tầm Nhìn Chiến Lược",
     "vanBan": "Bài phát biểu của bạn không chỉ thể hiện sự đoàn kết, mà còn cung cấp một phân tích chiến lược sâu sắc, vạch rõ kẻ thù chung. Bạn đã đoàn kết được cả các dân tộc thuộc địa và các đồng minh Pháp tiến bộ.\n\n**Kết quả:**\n- **Global Support +15**\n- **Reputation +30**",
-    "hinhAnh": "/assets/images/outcomes/paris-strategic-respect.jpg",
+    "hinhAnh": "/assets/images/paris-strategic-respect.jpg",
     "luaChon": [ { "vanBan": "Tiếp tục giai đoạn 2...", "nutTiepTheo": "parisMissionB_Normal" } ]
   },
   "ketQuaDongCamParisA": {
@@ -99,19 +99,19 @@
   "ketQuaChienLuocParisB": {
     "tieuDe": "Xây Dựng Nền Tảng",
     "vanBan": "Một hành động khôn ngoan. Bằng cách ưu tiên xây dựng sự ủng hộ về tư tưởng và chính trị, bạn đang tạo ra một liên minh bền vững dựa trên sự thấu hiểu chung. Jean cam kết sẽ giúp bạn.\n\n**Kết quả:**\n- **Global Support +20**\n- **Reputation +25**",
-    "hinhAnh": "/assets/images/outcomes/paris-success-handshake.jpg",
+    "hinhAnh": "/assets/images/paris-success-handshake.jpg",
     "luaChon": [ { "vanBan": "Tiến đến giai đoạn cuối...", "nutTiepTheo": "parisMissionC" } ]
   },
   "ketQuaCoHoiParisB": {
     "tieuDe": "Cái Nhìn Ngắn Hạn",
     "vanBan": "Jean đồng ý sẽ cố gắng quyên góp, nhưng ông ta có vẻ thất vọng. 'Tôi nghĩ anh có tầm nhìn xa hơn là chỉ tiền bạc,' ông ta nói. Bạn có được sự hỗ trợ vật chất, nhưng đã bỏ lỡ cơ hội xây dựng một liên minh chính trị sâu sắc hơn.\n\n**Kết quả:**\n- **Global Support +35**\n- **Reputation -15**",
-    "hinhAnh": "/assets/images/outcomes/paris-money.jpg",
+    "hinhAnh": "/assets/images/paris-money.jpg",
     "luaChon": [ { "vanBan": "Tiến đến giai đoạn cuối...", "nutTiepTheo": "parisMissionC" } ]
   },
   "ketQuaLyTuongParisB": {
     "tieuDe": "Làm Mất Lòng Đồng Minh",
     "vanBan": "Lập luận của bạn đã hoàn toàn xa rời thực tế của Jean. Ông ta cảm thấy bạn không quan tâm đến những khó khăn của người lao động Pháp và từ chối giúp đỡ. Cánh cửa này đã đóng lại.\n\n**Kết quả:**\n- **Global Support -10**\n- **Reputation -30**",
-    "hinhAnh": "/assets/images/outcomes/paris-argument.jpg",
+    "hinhAnh": "/assets/images/paris-argument.jpg",
     "luaChon": [ { "vanBan": "Tiến đến giai đoạn cuối...", "nutTiepTheo": "parisMissionC" } ]
   },
   "parisMissionC": {
