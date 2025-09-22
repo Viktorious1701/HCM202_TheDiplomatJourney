@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeroSection from './components/hero-section';
 import { GamePage } from './pages/GamePage';
+import TimelinePage from './pages/TimelinePage';
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HeroSection />} />
           <Route path="/game" element={<GamePage />} />
-          {/* Add other main pages like Timeline and Biography here if they become full pages */}
+          <Route path="/timeline" element={<TimelinePage />} />
+          {/* Add other main pages like Biography here if they become full pages */}
         </Routes>
       </div>
     </Router>
