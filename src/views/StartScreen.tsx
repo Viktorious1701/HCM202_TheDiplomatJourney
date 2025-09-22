@@ -6,8 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export const StartScreen = () => {
+  // CORRECTED: Select the action and the computed function separately.
   const startGame = useGameStore((state) => state.startGame);
-  const currentNode = useGameStore((state) => state.currentStoryNode());
+  const currentStoryNode = useGameStore((state) => state.currentStoryNode);
+
+  // Call the selected function here.
+  const currentNode = currentStoryNode();
+
   const [name, setName] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -16,7 +21,6 @@ export const StartScreen = () => {
       alert('Please enter your name to begin.');
       return;
     }
-    // Call the startGame action with the player's name
     startGame(name.trim());
   };
 

@@ -10,12 +10,12 @@ interface GameState {
   startTime: number | null;
   endTime: number | null;
   history: string[];
-  playerName: string; // Add playerName to the state
+  playerName: string;
 }
 
 interface GameActions {
-  startGame: (playerName: string) => void; // Update startGame to accept a name
-  makeChoice: (nextNodeKey: string, supportValue?: number, repValue?: number) => void;
+  startGame: (playerName: string) => void;
+  makeChoice: (nextNodeKey: string) => void; // Signature updated
   endGame: () => void;
   resetGame: () => void;
 }
@@ -39,17 +39,22 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
   // Actions
   startGame: (playerName: string) => {
     set({
-      playerName, // Store the player's name
+      playerName,
       startTime: Date.now(),
       endTime: null,
       globalSupport: 0,
       reputation: 0,
-      // Transition to the first actual game screen
-      currentNodeKey: 'banDoTheGioi', 
+      currentNodeKey: 'banDoTheGioi',
       history: ['batDau', 'banDoTheGioi'],
     });
   },
-  makeChoice: (nextNodeKey, supportValue = 0, repValue = 0) => {
+  makeChoice: (nextNodeKey) => {
+    // Automatically look up and apply scores from the destination node
+    const story = storyData as any;
+    const nextNode = story[nextNodeKey];
+    const supportValue = nextNode.diemSo || 0;
+    const repValue = nextNode.diemDanhVong || 0;
+
     set((state) => ({
       globalSupport: state.globalSupport + supportValue,
       reputation: state.reputation + repValue,
@@ -70,7 +75,7 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       startTime: null,
       endTime: null,
       history: ['batDau'],
-      playerName: '', // Reset player name
+      playerName: '',
     });
   },
 
