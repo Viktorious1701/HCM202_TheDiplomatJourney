@@ -1,9 +1,11 @@
+// the-diplomats-journey/src/App.tsx
 // path: the-diplomats-journey/src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeroSection from './components/hero-section';
 import { GamePage } from './pages/GamePage';
 import TimelinePage from './pages/TimelinePage';
 import PresentationPage from './pages/PresentationPage';
+import LeaderboardPage from './pages/LeaderboardPage'; // Import the new page
 
 function App() {
   return (
@@ -14,7 +16,8 @@ function App() {
           <Route path="/game" element={<GamePage />} />
           <Route path="/timeline" element={<TimelinePage />} />
           <Route path="/presentations" element={<PresentationPage />} />
-          {/* Add other main pages like Timeline and Biography here if they become full pages */}
+          {/* Add the route for the leaderboard */}
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
         </Routes>
       </div>
     </Router>

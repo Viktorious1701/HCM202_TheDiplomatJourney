@@ -96,12 +96,7 @@
         }
     ]
   },
-  "ketQuaChienLuocParisB": {
-    "tieuDe": "Xây Dựng Nền Tảng",
-    "vanBan": "Một hành động khôn ngoan. Bằng cách ưu tiên xây dựng sự ủng hộ về tư tưởng và chính trị, bạn đang tạo ra một liên minh bền vững dựa trên sự thấu hiểu chung. Jean cam kết sẽ giúp bạn.\n\n**Kết quả:**\n- **Global Support +20**\n- **Reputation +25**",
-    "hinhAnh": "/assets/images/arc1/outcomes/paris-success-handshake.jpg",
-    "luaChon": [ { "vanBan": "Tiến đến giai đoạn cuối...", "nutTiepTheo": "parisMissionC" } ]
-  },
+c
   "ketQuaCoHoiParisB": {
     "tieuDe": "Cái Nhìn Ngắn Hạn",
     "vanBan": "Jean đồng ý sẽ cố gắng quyên góp, nhưng ông ta có vẻ thất vọng. 'Tôi nghĩ anh có tầm nhìn xa hơn là chỉ tiền bạc,' ông ta nói. Bạn có được sự hỗ trợ vật chất, nhưng đã bỏ lỡ cơ hội xây dựng một liên minh chính trị sâu sắc hơn.\n\n**Kết quả:**\n- **Global Support +35**\n- **Reputation -15**",

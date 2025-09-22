@@ -38,7 +38,7 @@ const PresentationPage: React.FC = () => {
         "Phong trào thi đua yêu nước trong xây dựng đất nước",
         "Mặt trận Tổ quốc Việt Nam - tổ chức đoàn kết rộng rãi nhất"
       ],
-      image: "/assets/images/moscow-mission-debate.jpg"
+      image: "/assets/images/arc2/incomes/moscow-debate.jpg"
     },
     {
       id: 2,
@@ -59,7 +59,7 @@ const PresentationPage: React.FC = () => {
         "Ủng hộ các phong trào giải phóng dân tộc ở châu Phi, châu Á",
         "Thiết lập quan hệ ngoại giao với 23 nước (1945-1969)"
       ],
-      image: "/assets/images/worldmap.jpg"
+      image: "/assets/images/world-map.png"
     },
     {
       id: 3,
@@ -80,7 +80,7 @@ const PresentationPage: React.FC = () => {
         "Chính sách đối với trí thức - trọng dụng nhân tài",
         "Chính sách kiều bào - 'Lá lành đùm lá rách'"
       ],
-      image: "/assets/images/paris-mission-activists.jpg"
+      image: "/assets/images/arc1/incomes/paris-mission-activists.jpg"
     },
     {
       id: 4,
@@ -101,7 +101,7 @@ const PresentationPage: React.FC = () => {
         "Đối với các tôn giáo: đoàn kết trên cơ sở yêu nước",
         "Đối với dân tộc thiểu số: 'Bắc tiến Nam tiến cùng tây tiến'"
       ],
-      image: "/assets/images/moscow-mission-comintern.jpg"
+      image: "/assets/images/arc2/incomes/moscow-comintern-meeting.jpg"
     },
     {
       id: 5,
@@ -122,7 +122,7 @@ const PresentationPage: React.FC = () => {
         "Mặt trận Tổ quốc Việt Nam - tập hợp các tầng lớp nhân dân",
         "Chính sách đối ngoại 'Cây tre Việt Nam' - vừa vững vàng vừa mềm mại"
       ],
-      image: "/assets/images/paris-outcome-handshake.jpg"
+      image: "/assets/images/arc1/outcomes/paris-strategic-respect.jpg"
     }
   ];
 

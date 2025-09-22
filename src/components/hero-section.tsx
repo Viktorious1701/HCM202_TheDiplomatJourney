@@ -1,3 +1,4 @@
+// the-diplomats-journey/src/components/hero-section.tsx
 // path: the-diplomats-journey/src/components/hero-section.tsx
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -25,15 +26,15 @@ export default function HeroSection() {
                                         </Link>
                                     </Button>
                                     
+                                    {/* Link to view the leaderboard, as per the UI design */}
                                     <Button
-                                        key={2}
                                         asChild
                                         size="lg"
-                                        variant="ghost"
+                                        variant="outline"
                                         className="px-5 text-base">
-                                        <a href="#about">
-                                            <span className="text-nowrap">Learn About HCM</span>
-                                        </a>
+                                        <Link to="/leaderboard">
+                                          <span className="text-nowrap">View Leaderboard</span>
+                                        </Link>
                                     </Button>
                                 </div>
                             </div>

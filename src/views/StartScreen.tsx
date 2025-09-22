@@ -1,34 +1,55 @@
+import { useState } from 'react';
 import { useGameStore } from '../stores/gameStore';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export const StartScreen = () => {
-  const makeChoice = useGameStore((state) => state.makeChoice);
+  const startGame = useGameStore((state) => state.startGame);
   const currentNode = useGameStore((state) => state.currentStoryNode());
+  const [name, setName] = useState('');
 
-  // The StartScreen will have the first "choice" to begin the game,
-  // which is defined in the `batDau` node of story.json.
-  const startGameChoice = currentNode.luaChon?.[0];
-
-  if (!startGameChoice) {
-    // This can happen if the story.json is not loaded correctly
-    return <div>Error: Could not find starting choice.</div>;
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim()) {
+      alert('Please enter your name to begin.');
+      return;
+    }
+    // Call the startGame action with the player's name
+    startGame(name.trim());
+  };
 
   return (
-    <div style={{ textAlign: 'center', padding: '48px' }}>
-      <h1>{currentNode.tieuDe}</h1>
-      <p style={{ whiteSpace: 'pre-wrap' }}>{currentNode.vanBan}</p>
-      
-      <button 
-        onClick={() => makeChoice(startGameChoice.nutTiepTheo)}
-        style={{
-          marginTop: '24px',
-          padding: '12px 24px',
-          cursor: 'pointer',
-          fontSize: '18px'
-        }}
-      >
-        {startGameChoice.vanBan}
-      </button>
+    <div className="flex justify-center items-center min-h-screen p-4 bg-background/50 backdrop-blur-sm">
+      <Card className="w-full max-w-lg">
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl">{currentNode.tieuDe}</CardTitle>
+          <CardDescription className="pt-2 text-base">{currentNode.vanBan}</CardDescription>
+        </CardHeader>
+        <form onSubmit={handleSubmit}>
+          <CardContent>
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-lg">Enter Your Name</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="Name of the Diplomat..."
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                maxLength={50}
+                className="text-base"
+              />
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button type="submit" className="w-full text-lg py-6">
+              Begin Journey
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   );
 };
