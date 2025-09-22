@@ -65,7 +65,7 @@ export default function Modal({ isOpen, onClose, children, title }: ModalProps) 
         
         {/* Content */}
         <div className="relative overflow-y-auto max-h-[calc(90vh-80px)] bg-background/95 backdrop-blur-sm">
-          <div className="animate-content-fade-in">
+          <div className="p-6 animate-content-fade-in">
             {children}
           </div>
         </div>

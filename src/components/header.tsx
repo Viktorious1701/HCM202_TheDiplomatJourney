@@ -26,10 +26,10 @@ const NavLink = ({ href, children, className, ...props }: {
 };
 
 const menuItems = [
-    { name: 'Missions', href: '/game' }, // Direct link to start the game
+    { name: 'Missions', href: '/game' },
     { name: 'Timeline', href: '/timeline' },
-    { name: 'Biography', href: '#biography' }, // Anchor link
-    { name: 'Learn More', href: '#about' }, // Anchor link
+    { name: 'Presentations', href: '/presentations' },
+    { name: 'Learn More', href: '#about' },
 ];
 
 export const HeroHeader = () => {
