@@ -1,7 +1,8 @@
+// the-diplomats-journey/src/stores/gameStore.ts
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import storyData from '../data/story.json';
-import type { StoryNode } from '../types';
+import type { StoryNode, DebateQuestion } from '../types';
 
 interface GameState {
   currentNodeKey: string;
@@ -15,7 +16,9 @@ interface GameState {
 
 interface GameActions {
   startGame: (playerName: string) => void;
-  makeChoice: (nextNodeKey: string) => void; // Signature updated
+  makeChoice: (nextNodeKey: string) => void;
+  // New action for handling debate question scoring
+  answerDebateQuestion: (question: DebateQuestion, wasCorrect: boolean) => void;
   endGame: () => void;
   resetGame: () => void;
 }
@@ -44,12 +47,11 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       endTime: null,
       globalSupport: 0,
       reputation: 0,
-      currentNodeKey: 'banDoTheGioi',
+      currentNodeKey: 'banDoTheGioi', 
       history: ['batDau', 'banDoTheGioi'],
     });
   },
   makeChoice: (nextNodeKey) => {
-    // Automatically look up and apply scores from the destination node
     const story = storyData as any;
     const nextNode = story[nextNodeKey];
     const supportValue = nextNode.diemSo || 0;
@@ -60,6 +62,22 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       reputation: state.reputation + repValue,
       currentNodeKey: nextNodeKey,
       history: [...state.history, nextNodeKey],
+    }));
+  },
+  // Handles scoring for the debate mission type
+  answerDebateQuestion: (question, wasCorrect) => {
+    // This assumes the question object in story.json has a 'diemSo' and 'diemDanhVong' structure
+    const scoreEffect = (question as any).diemSo;
+    const repEffect = (question as any).diemDanhVong;
+
+    if (!scoreEffect || !repEffect) return;
+
+    const supportChange = wasCorrect ? scoreEffect.dung : scoreEffect.sai;
+    const repChange = wasCorrect ? repEffect.dung : repEffect.sai;
+
+    set((state) => ({
+      globalSupport: state.globalSupport + supportChange,
+      reputation: state.reputation + repChange,
     }));
   },
   endGame: () => {
