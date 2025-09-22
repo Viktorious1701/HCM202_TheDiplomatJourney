@@ -12,12 +12,13 @@
   },
   "banDoTheGioi": {
     "tieuDe": "Bản Đồ Thế Giới",
-    "vanBan": "Chọn một địa điểm để bắt đầu nhiệm vụ ngoại giao của bạn.",
+    "vanBan": "Hành trình của bạn tiếp tục. Chọn điểm đến tiếp theo.",
     "hinhAnh": "assets/images/world-map.png",
     "cacNhiemVu": [
-      { "id": "paris", "ten": "Paris, Pháp", "trangThai": "chuaHoanThanh" },
-      { "id": "moscow", "ten": "Mát-xcơ-va, Liên Xô", "trangThai": "chuaHoanThanh" },
-      { "id": "quangChau", "ten": "Quảng Châu, Trung Quốc", "trangThai": "chuaHoanThanh" }
+      { "id": "paris", "ten": "Paris, Pháp", "nutTiepTheo": "nhiemVuParis" },
+      { "id": "moscow", "ten": "Mát-xcơ-va, Liên Xô", "nutTiepTheo": "nhiemVuMoscowA" },
+      { "id": "guangzhou", "ten": "Quảng Châu, Trung Quốc", "nutTiepTheo": "nhiemVuQuangChauA" },
+      { "id": "pacBo", "ten": "Pác Bó, Việt Nam", "nutTiepTheo": "nhiemVuPacBo" }
     ]
   },
   "nhiemVuParis": {
@@ -145,6 +146,7 @@
     "hinhAnh": "assets/images/arc1/outcomes/paris-hoi-ai-huu.jpg",
     "diemSo": 20,
     "diemDanhVong": 15,
+    "completedMissionId": "paris",
     "luaChon": [
       {
         "vanBan": "Hoàn thành nhiệm vụ tại Paris!",
@@ -158,10 +160,11 @@
     "hinhAnh": "assets/images/arc1/outcomes/paris-argument.jpg",
     "diemSo": -10,
     "diemDanhVong": -20,
+    "completedMissionId": "paris",
     "luaChon": [
       {
-        "vanBan": "Phải bắt đầu lại...",
-        "nutTiepTheo": "parisMissionC"
+        "vanBan": "Nhiệm vụ tại Paris thất bại...",
+        "nutTiepTheo": "banDoTheGioi"
       }
     ]
   },
@@ -318,6 +321,7 @@
     "tieuDe": "Nhiệm Vụ Hoàn Thành",
     "vanBan": "Cuộc tranh luận đã kết thúc. Lập trường vững vàng và tư duy sắc bén của bạn đã gây ấn tượng mạnh mẽ với các đại biểu. Bạn đã chứng minh mình không chỉ là một nhà yêu nước, mà còn là một nhà tư tưởng cách mạng có tầm nhìn. Sự ủng hộ dành cho bạn đã được củng cố.",
     "hinhAnh": "assets/images/arc2/outcomes/moscow-mission-complete.jpg",
+    "completedMissionId": "moscow",
     "giaiThich": [
         { "id": "q1", "giaiThichDung": "PHẢN ĐỐI là đúng. Theo Nguyễn Ái Quốc, cách mạng giải phóng dân tộc ở thuộc địa có thể và cần phải chủ động thành công trước, qua đó thúc đẩy cách mạng ở chính quốc.", "giaiThichSai": "Bạn đã chọn TÁN THÀNH. Đây là một quan điểm sai lầm. Nguyễn Ái Quốc cho rằng cách mạng ở thuộc địa không phụ thuộc một cách bị động." },
         { "id": "q2", "giaiThichDung": "PHẢN ĐỐI là đúng. Tư tưởng Hồ Chí Minh kết hợp hài hòa lợi ích dân tộc chân chính với chủ nghĩa quốc tế. Lợi ích dân tộc là nền tảng.", "giaiThichSai": "Bạn đã chọn TÁN THÀNH. Quan điểm này có thể dẫn đến việc hy sinh lợi ích chính đáng của dân tộc mình một cách vô ích." },
@@ -417,6 +421,7 @@
     "hinhAnh": "assets/images/arc3/outcomes/guangzhou-mission-success.jpg",
     "diemSo": 30,
     "diemDanhVong": -40,
+    "completedMissionId": "guangzhou",
     "luaChon": [
       {
         "vanBan": "Hoàn thành nhiệm vụ tại Quảng Châu!",
@@ -430,6 +435,7 @@
     "hinhAnh": "assets/images/arc3/outcomes/guangzhou-alliance-saved.jpg",
     "diemSo": -20,
     "diemDanhVong": 50,
+    "completedMissionId": "guangzhou",
     "luaChon": [
       {
         "vanBan": "Hoàn thành nhiệm vụ tại Quảng Châu!",
@@ -443,6 +449,7 @@
     "hinhAnh": "assets/images/arc3/outcomes/guangzhou-regional-leader.jpg",
     "diemSo": -10,
     "diemDanhVong": 60,
+    "completedMissionId": "guangzhou",
     "luaChon": [
       {
         "vanBan": "Hoàn thành nhiệm vụ tại Quảng Châu!",

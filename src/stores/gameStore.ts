@@ -1,4 +1,3 @@
-// the-diplomats-journey/src/stores/gameStore.ts
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import storyData from '../data/story.json';
@@ -12,12 +11,12 @@ interface GameState {
   endTime: number | null;
   history: string[];
   playerName: string;
+  completedMissions: string[]; // To track completed missions
 }
 
 interface GameActions {
   startGame: (playerName: string) => void;
   makeChoice: (nextNodeKey: string) => void;
-  // New action for handling debate question scoring
   answerDebateQuestion: (question: DebateQuestion, wasCorrect: boolean) => void;
   endGame: () => void;
   resetGame: () => void;
@@ -38,6 +37,7 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
   endTime: null,
   history: ['batDau'],
   playerName: '',
+  completedMissions: [],
 
   // Actions
   startGame: (playerName: string) => {
@@ -49,11 +49,20 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       reputation: 0,
       currentNodeKey: 'banDoTheGioi', 
       history: ['batDau', 'banDoTheGioi'],
+      completedMissions: [], // Reset progress on new game
     });
   },
   makeChoice: (nextNodeKey) => {
     const story = storyData as any;
     const nextNode = story[nextNodeKey];
+
+    // Check if the destination node completes a mission and update state
+    if (nextNode.completedMissionId) {
+      set(state => ({
+        completedMissions: [...new Set([...state.completedMissions, nextNode.completedMissionId])]
+      }));
+    }
+    
     const supportValue = nextNode.diemSo || 0;
     const repValue = nextNode.diemDanhVong || 0;
 
@@ -64,17 +73,12 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       history: [...state.history, nextNodeKey],
     }));
   },
-  // Handles scoring for the debate mission type
   answerDebateQuestion: (question, wasCorrect) => {
-    // This assumes the question object in story.json has a 'diemSo' and 'diemDanhVong' structure
     const scoreEffect = (question as any).diemSo;
     const repEffect = (question as any).diemDanhVong;
-
     if (!scoreEffect || !repEffect) return;
-
     const supportChange = wasCorrect ? scoreEffect.dung : scoreEffect.sai;
     const repChange = wasCorrect ? repEffect.dung : repEffect.sai;
-
     set((state) => ({
       globalSupport: state.globalSupport + supportChange,
       reputation: state.reputation + repChange,
@@ -94,6 +98,7 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       endTime: null,
       history: ['batDau'],
       playerName: '',
+      completedMissions: [], // Also reset completed missions
     });
   },
 
