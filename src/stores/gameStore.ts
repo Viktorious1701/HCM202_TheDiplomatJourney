@@ -129,10 +129,10 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
   },
   completionTime: () => {
     const { startTime, endTime } = get();
-    if (startTime === null || endTime === null) {
-      return 0;
-    }
-    return (endTime - startTime) / 1000;
+    if (startTime === null) return 0;
+    // If game not ended yet, provide live elapsed seconds
+    const effectiveEnd = endTime ?? Date.now();
+    return (effectiveEnd - startTime) / 1000;
   },
   finalScore: () => {
     const { globalSupport, reputation } = get();

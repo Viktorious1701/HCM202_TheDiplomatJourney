@@ -7,19 +7,25 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 interface GameCompleteScreenProps {
   score: number;
-  time: number;
+  time: number; // may be 0 on initial render due to endGame race
 }
 
 export function GameCompleteScreen({ score, time }: GameCompleteScreenProps) {
   // Get the player's name directly from the game store
   const playerName = useGameStore((state) => state.playerName);
+  const startTime = useGameStore(s => s.startTime);
+  const endTime = useGameStore(s => s.endTime);
   const resetGame = useGameStore((state) => state.resetGame);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  // Derive a stable final time: if endTime not yet set, use live elapsed
+  const liveElapsed = startTime ? ((endTime ?? Date.now()) - startTime) / 1000 : 0;
+  const displayTime = time > 0 ? time : liveElapsed;
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    const newEntry = { name: playerName, score, time };
+    const newEntry = { name: playerName, score, time: displayTime };
 
     const result = await addScore(newEntry);
 
@@ -51,7 +57,7 @@ export function GameCompleteScreen({ score, time }: GameCompleteScreenProps) {
               </div>
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Time</p>
-                <p className="text-2xl font-bold">{time.toFixed(2)}s</p>
+                <p className="text-2xl font-bold">{displayTime.toFixed(2)}s</p>
               </div>
             </div>
         </CardContent>
@@ -66,4 +72,4 @@ export function GameCompleteScreen({ score, time }: GameCompleteScreenProps) {
       </Card>
     </div>
   );
-}
+}
