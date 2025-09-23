@@ -64,46 +64,58 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
-  
+
   a:hover {
     color: #747bff;
   }
-  
+
   button {
     background-color: #f9f9f9;
   }
 }
 
-
-
 @layer base {
+  /* Updated theme variables to match the parchment and ink style from the design documents. */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    /* Backgrounds */
+    --background: 48 65% 95%; /* Parchment: #FBF5E5 */
+    --foreground: 43 21% 19%; /* Ink: #3D3522 */
+
+    /* Cards & Popovers */
+    --card: 48 65% 95%; /* Same as background */
+    --card-foreground: 43 21% 19%; /* Same as foreground */
+    --popover: 48 65% 95%;
+    --popover-foreground: 43 21% 19%;
+
+    /* Primary actions (buttons) */
+    --primary: 0 59% 40%; /* Brown Rust: #A52A2A */
+    --primary-foreground: 48 65% 98%; /* Lighter Parchment for text on buttons */
+
+    /* Secondary elements */
+    --secondary: 43 22% 80%; /* Faded Ink background */
+    --secondary-foreground: 43 21% 19%; /* Ink text on secondary */
+
+    /* Muted text and borders */
+    --muted: 43 22% 80%;
+    --muted-foreground: 43 21% 40%; /* Faded Ink text color */
+
+    /* Accents (hovers, highlights) */
+    --accent: 35 48% 69%; /* Soft Tan: #D2B48C */
+    --accent-foreground: 43 21% 10%; /* Darker Ink for text on accent */
+
+    /* Destructive actions */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+
+    /* Borders and Inputs */
+    --border: 43 21% 70%; /* Faded ink as a border color */
+    --input: 43 21% 70%;
+    --ring: 0 59% 40%; /* Brown rust for focus rings */
+
     --radius: 0.5rem;
   }
+
+  /* The dark theme remains unchanged for other parts of the site. */
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -124,15 +136,8 @@ button:focus-visible {
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {
@@ -140,5 +145,7 @@ button:focus-visible {
   }
   body {
     @apply bg-background text-foreground;
+    /* Optional: Add a subtle parchment texture image here. */
+    /* background-image: url('/assets/images/parchment-texture.jpg'); */
   }
 }
