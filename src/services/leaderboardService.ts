@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // path: the-diplomats-journey/src/services/leaderboardService.ts
 import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
 import type { LeaderboardEntry, ProgressUpdate, ChatMessage, TypingEvent } from '../types';
@@ -10,10 +11,10 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('[Supabase] Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY.');
 }
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const LEADERBOARD_TABLE = 'leaderboard';
-const BROADCAST_CHANNEL = 'leaderboard-broadcast';
+export const BROADCAST_CHANNEL = 'leaderboard-broadcast';
 
 // Lazy singleton broadcast channel (for low latency optimistic updates)
 let broadcastChannel: RealtimeChannel | null = null;
@@ -44,7 +45,8 @@ export const getLeaderboard = async (): Promise<LeaderboardEntry[]> => {
   return data || [];
 };
 
-// Subscribe to realtime table changes (insert/update/delete)
+// Subscribes to database changes for the leaderboard table.
+// This provides reliable, eventually-consistent updates.
 export const subscribeLeaderboard = (onChange: (entries: LeaderboardEntry[]) => void): (() => void) => {
   const channel = supabase
     .channel('public:leaderboard')
@@ -76,7 +78,8 @@ export const addScore = async (newEntry: LeaderboardEntry): Promise<LeaderboardE
     return null;
   }
 
-  // Fire a broadcast so listeners can merge without waiting for DB echo
+  // Sends a broadcast message to all connected clients.
+  // This allows for instant UI updates without waiting for the database to trigger the postgres_changes event.
   getBroadcastChannel().send({
     type: 'broadcast',
     event: 'new-score',
@@ -112,8 +115,6 @@ export const initPresence = (
     supabase.removeChannel(presenceChannel);
   };
 };
-
-export { supabase, BROADCAST_CHANNEL };
 
 // ---------------- Multiplayer Extensions ----------------
 

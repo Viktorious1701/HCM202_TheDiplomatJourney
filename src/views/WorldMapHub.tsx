@@ -1,6 +1,7 @@
 import { useGameStore } from '@/stores/gameStore';
 import { Button } from '@/components/ui/button';
 import { BookText, Lock, Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export const WorldMapHub = () => {
   const currentStoryNode = useGameStore((state) => state.currentStoryNode);
@@ -13,7 +14,6 @@ export const WorldMapHub = () => {
     alert("Knowledge Hub / Presentation Slides would open here.");
   };
 
-  // Define the mission sequence and their unlock requirements
   const missionSequence = [
     { id: 'paris', name: 'Paris', nodeKey: 'nhiemVuParis', requires: [], style: { top: '38%', left: '49%' } },
     { id: 'moscow', name: 'Moscow', nodeKey: 'nhiemVuMoscowA', requires: ['paris'], style: { top: '34%', left: '56%' } },
@@ -22,16 +22,17 @@ export const WorldMapHub = () => {
   ];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden flex flex-col items-center justify-center text-center p-4">
-      <div
-        className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-0"
-        style={{ backgroundImage: `url(${currentNode.hinhAnh})` }}
-      />
+    // The main container now acts as a full-screen map background.
+    <div
+      className="relative w-full h-screen bg-cover bg-center flex flex-col items-center justify-center text-center p-4"
+      style={{ backgroundImage: `url(${currentNode.hinhAnh})` }}
+    >
+      {/* A dark overlay is added to improve contrast and focus. */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black/30 z-0" />
 
-      <div className="absolute top-0 left-0 w-full h-full bg-black/30 z-10" />
-
-      <div className="relative z-20 text-white">
-        <h1 className="text-4xl md:text-6xl font-bold font-heading drop-shadow-md">
+      {/* Narrative text is now a semi-transparent card on top of the map. */}
+      <div className="relative z-10 text-white bg-black/40 backdrop-blur-sm p-6 rounded-lg shadow-lg mb-8">
+        <h1 className="text-4xl md:text-5xl font-bold font-heading drop-shadow-md">
           {currentNode.tieuDe}
         </h1>
         <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto drop-shadow-sm">
@@ -39,18 +40,25 @@ export const WorldMapHub = () => {
         </p>
       </div>
 
-      <div className="absolute top-0 left-0 w-full h-full z-20">
+      {/* Mission markers are positioned absolutely over the map background. */}
+      <div className="absolute top-0 left-0 w-full h-full z-10">
         {missionSequence.map((mission) => {
           const isCompleted = completedMissions.includes(mission.id);
-          // A mission is unlocked if all its required prerequisite missions are in the completed list.
           const isUnlocked = mission.requires.every(req => completedMissions.includes(req));
 
           return (
             <Button
               key={mission.id}
               variant={isCompleted ? 'secondary' : 'outline'}
-              className="absolute bg-background/80 hover:bg-background transition-all duration-300"
-              style={{ ...mission.style, transform: 'translate(-50%, -50%)' }}
+              className={cn(
+                "absolute bg-background/80 hover:bg-background transition-all duration-300 transform -translate-x-1/2 -translate-y-1/2 shadow-lg hover:scale-110",
+                {
+                  "opacity-50 cursor-not-allowed": !isUnlocked,
+                  "ring-2 ring-green-500": isCompleted,
+                  "animate-pulse": isUnlocked && !isCompleted
+                }
+              )}
+              style={mission.style}
               onClick={() => isUnlocked && !isCompleted && makeChoice(mission.nodeKey)}
               disabled={!isUnlocked || isCompleted}
               aria-label={`Mission: ${mission.name}. Status: ${isCompleted ? 'Completed' : isUnlocked ? 'Available' : 'Locked'}`}

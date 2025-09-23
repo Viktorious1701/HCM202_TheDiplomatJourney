@@ -1,21 +1,18 @@
+/* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// the-diplomats-journey/src/components/DebateMission.tsx
 import { useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { Button } from '@/components/ui/button';
-// CORRECTED: Added CardFooter to the import list.
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { CheckCircle, XCircle } from 'lucide-react';
 
-interface DebateMissionProps {
-  // node prop removed (unused) – component derives current node from store
-}
+type DebateMissionProps = object
 
-export const DebateMission = ({}: DebateMissionProps) => {
+export const DebateMission = ({ }: DebateMissionProps) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<( 'tanThanh' | 'phanDoi' | null)[]>([]);
+  const [answers, setAnswers] = useState<('tanThanh' | 'phanDoi' | null)[]>([]);
   const [showResults, setShowResults] = useState(false);
-  
+
   const makeChoice = useGameStore((state) => state.makeChoice);
   const currentStoryNode = useGameStore((state) => state.currentStoryNode);
   const answerDebateQuestion = useGameStore((state) => state.answerDebateQuestion);
@@ -29,7 +26,6 @@ export const DebateMission = ({}: DebateMissionProps) => {
     newAnswers[currentQuestionIndex] = answer;
     setAnswers(newAnswers);
 
-    // Apply score immediately after answering
     const isCorrect = answer === currentQuestion.dapAnDung;
     answerDebateQuestion(currentQuestion, isCorrect);
 
@@ -48,40 +44,35 @@ export const DebateMission = ({}: DebateMissionProps) => {
 
   if (showResults) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Kết quả Tranh luận</CardTitle>
-          <CardDescription>Đây là phân tích các câu trả lời của bạn.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ul className="space-y-4">
-            {debateQuestions.map((q, index) => {
-              const userAnswer = answers[index];
-              const isCorrect = userAnswer === q.dapAnDung;
-              const explanation = currentNode.giaiThich?.find(e => e.id === q.id);
-              return (
-                <li key={q.id} className="p-3 border rounded-md">
-                  <p className="font-semibold">{q.vanBan}</p>
-                  <div className={`flex items-center mt-2 ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                    {isCorrect ? <CheckCircle className="mr-2 h-5 w-5" /> : <XCircle className="mr-2 h-5 w-5" />}
-                    <span>Bạn đã {userAnswer === 'tanThanh' ? 'Tán thành' : 'Phản đối'}. Câu trả lời {isCorrect ? 'đúng' : 'sai'}.</span>
-                  </div>
-                  {explanation && <p className="text-sm text-muted-foreground mt-1">{isCorrect ? explanation.giaiThichDung : explanation.giaiThichSai}</p>}
-                </li>
-              );
-            })}
-          </ul>
-        </CardContent>
-        <CardFooter>
-            <Button onClick={handleFinishDebate} className="w-full">Hoàn thành Nhiệm vụ</Button>
-        </CardFooter>
-      </Card>
+      // The results are now displayed without a card background to fit into the visual novel UI.
+      <div className="text-white">
+        <h3 className="text-xl font-bold">Kết quả Tranh luận</h3>
+        <p className="text-white/80 mb-4">Đây là phân tích các câu trả lời của bạn.</p>
+        <div className="space-y-4">
+          {debateQuestions.map((q, index) => {
+            const userAnswer = answers[index];
+            const isCorrect = userAnswer === q.dapAnDung;
+            const explanation = currentNode.giaiThich?.find(e => e.id === q.id);
+            return (
+              <div key={q.id} className="p-3 border rounded-md bg-black/50 border-white/20">
+                <p className="font-semibold">{q.vanBan}</p>
+                <div className={`flex items-center mt-2 ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+                  {isCorrect ? <CheckCircle className="mr-2 h-5 w-5" /> : <XCircle className="mr-2 h-5 w-5" />}
+                  <span>Bạn đã {userAnswer === 'tanThanh' ? 'Tán thành' : 'Phản đối'}. Câu trả lời {isCorrect ? 'đúng' : 'sai'}.</span>
+                </div>
+                {explanation && <p className="text-sm text-white/70 mt-1">{isCorrect ? explanation.giaiThichDung : explanation.giaiThichSai}</p>}
+              </div>
+            );
+          })}
+        </div>
+        <Button onClick={handleFinishDebate} className="w-full mt-4">Hoàn thành Nhiệm vụ</Button>
+      </div>
     );
   }
 
   return (
-    <div>
-      <p className="text-lg font-semibold mb-4">{currentQuestion.vanBan}</p>
+    <div className="text-white text-center">
+      <p className="text-xl font-semibold mb-6">{currentQuestion.vanBan}</p>
       <div className="flex justify-center gap-4">
         <Button onClick={() => handleAnswer('tanThanh')} className="bg-green-600 hover:bg-green-700">
           Tán thành (Agree)

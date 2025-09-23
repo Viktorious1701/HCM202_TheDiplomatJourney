@@ -1,26 +1,57 @@
 // the-diplomats-journey/src/views/MissionView.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGameStore } from '@/stores/gameStore';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { HintNotebook } from '@/components/HintNotebook';
 import { BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Choice } from '@/types';
-import { DebateMission } from '@/components/DebateMission'; // Import the new component
+import { DebateMission } from '@/components/DebateMission';
 
 export const MissionView = () => {
-  const currentStoryNode = useGameStore((state) => state.currentStoryNode);
+  const currentNode = useGameStore((state) => state.currentStoryNode());
   const makeChoice = useGameStore((state) => state.makeChoice);
+  const currentNodeKey = useGameStore((state) => state.currentNodeKey);
+  const lastChoiceFeedback = useGameStore((state) => state.lastChoiceFeedback);
+  const clearChoiceFeedback = useGameStore((state) => state.clearChoiceFeedback);
   
-  const currentNode = currentStoryNode();
-
   const [showHint, setShowHint] = useState(false);
   const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
+  const [flashColor, setFlashColor] = useState<string | null>(null);
+  const [isTextVisible, setIsTextVisible] = useState(false);
+
+  useEffect(() => {
+    setIsTextVisible(false);
+    const timer = setTimeout(() => {
+      setIsTextVisible(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [currentNodeKey]);
+
+  useEffect(() => {
+    if (lastChoiceFeedback) {
+      let color = '';
+      switch (lastChoiceFeedback) {
+        case 'good': color = 'rgba(74, 222, 128, 0.3)'; break;
+        case 'neutral': color = 'rgba(250, 204, 21, 0.3)'; break;
+        case 'bad': color = 'rgba(239, 68, 68, 0.3)'; break;
+      }
+      setFlashColor(color);
+
+      const timer = setTimeout(() => {
+        setFlashColor(null);
+        clearChoiceFeedback();
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [lastChoiceFeedback, clearChoiceFeedback]);
 
   if (!currentNode) {
     return <div>Loading...</div>;
   }
+  
+  const isHardMode = currentNodeKey.includes('_HardMode');
 
   const handleChoiceClick = (choice: Choice) => {
     setSelectedChoice(choice);
@@ -31,33 +62,32 @@ export const MissionView = () => {
     }, 500);
   };
   
-  const ChoiceCard = ({ choice, onClick, isSelected }: { choice: Choice, onClick: () => void, isSelected: boolean }) => {
+  const ChoiceButton = ({ choice, onClick, isSelected }: { choice: Choice, onClick: () => void, isSelected: boolean }) => {
     return (
-      <Card 
-        className={cn(
-          "cursor-pointer hover:bg-accent/50 transition-all duration-200",
-          isSelected && "ring-2 ring-primary"
-        )}
-        onClick={onClick}
-      >
-        <CardContent className="p-4">
-          <p>{choice.vanBan}</p>
-        </CardContent>
-      </Card>
+        <Button
+            variant="outline"
+            className={cn(
+                "w-full justify-start text-left h-auto py-3 px-4 whitespace-normal bg-black/60 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 hover:text-white",
+                isSelected && "ring-2 ring-primary",
+                !isTextVisible && "opacity-50 cursor-not-allowed"
+            )}
+            onClick={onClick}
+            disabled={!isTextVisible}
+        >
+            {choice.vanBan}
+        </Button>
     );
   };
 
-  // This function conditionally renders the right UI for the mission type
   const renderMissionContent = () => {
     if (currentNode.loaiNhiemVu === 'tranhLuan') {
       return <DebateMission />;
     }
 
-    // Default to the standard choice-based UI
     return (
-      <div className="space-y-4">
+      <div className="space-y-3">
         {currentNode.luaChon?.map((choice, index) => (
-          <ChoiceCard
+          <ChoiceButton
             key={index}
             choice={choice}
             isSelected={selectedChoice === choice}
@@ -69,41 +99,59 @@ export const MissionView = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4 sm:p-6 md:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-6xl">
+    // Reverted to a full-screen background approach with a solid black fallback.
+    <div 
+      className="relative w-full h-screen bg-black flex flex-col justify-end p-4 md:p-8"
+      // Use inline styles for precise background control.
+      style={{ 
+        backgroundImage: `url(${currentNode.hinhAnh})`,
+        // `contain` ensures the entire image is visible without cropping, letterboxed if necessary.
+        backgroundSize: 'contain', 
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* This div creates the screen flash effect. It has the highest z-index. */}
+      <div
+        className="fixed inset-0 z-50 pointer-events-none transition-opacity duration-500"
+        style={{ backgroundColor: flashColor || 'transparent', opacity: flashColor ? 1 : 0 }}
+      />
         
-        <div className="flex justify-center items-center">
-          <img 
-            src={currentNode.hinhAnh} 
-            alt={currentNode.tieuDe} 
-            className="rounded-lg shadow-lg max-h-[80vh] object-contain"
-          />
-        </div>
+      {/* This overlay dims the scene for atmosphere. It sits just above the background. */}
+      <div className={cn(
+        "absolute inset-0 bg-black/20 z-0 transition-colors duration-500",
+        isHardMode && "bg-black/50"
+      )} />
 
-        <div className="flex flex-col">
-          <Card className="flex-grow">
-            <CardHeader>
-              <CardTitle className="text-3xl font-bold">{currentNode.tieuDe}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg text-foreground/80 whitespace-pre-wrap mb-6" dangerouslySetInnerHTML={{ __html: currentNode.vanBan.replace(/\n/g, '<br />') }} />
-              
-              {/* Render the appropriate mission UI */}
+      {/* A gradient at the bottom ensures text is readable over the background. */}
+      <div className="absolute bottom-0 left-0 right-0 h-3/4 bg-gradient-to-t from-black/80 via-black/60 to-transparent pointer-events-none z-10" />
+
+      {/* Main content area for text and choices, positioned at the bottom of the screen. */}
+      <div className="relative z-20 w-full max-w-4xl mx-auto space-y-6">
+        {/* The text box and choices appear after the 2-second delay. */}
+        {isTextVisible && (
+            <>
+              <div className="bg-black/60 backdrop-blur-sm p-6 rounded-lg border border-white/20">
+                  <h1 className="text-3xl font-bold mb-4 text-white drop-shadow-lg">{currentNode.tieuDe}</h1>
+                  <p 
+                      className="text-xl text-white/90 leading-relaxed min-h-[120px] drop-shadow-md"
+                      dangerouslySetInnerHTML={{ __html: (currentNode.vanBan || '').replace(/\n/g, '<br />') }} 
+                  />
+              </div>
+
               {renderMissionContent()}
 
-            </CardContent>
-          </Card>
-
-          {currentNode.hint && (
-            <div className="mt-4 text-center">
-              <Button variant="ghost" onClick={() => setShowHint(!showHint)}>
-                <BookOpen className="mr-2 h-4 w-4" />
-                {showHint ? "Ẩn Gợi Ý" : "Xem Sổ Tay (Gợi Ý)"}
-              </Button>
-              {showHint && <HintNotebook hint={currentNode.hint} />}
-            </div>
-          )}
-        </div>
+              {currentNode.hint && (
+                <div className="text-center">
+                  <Button variant="ghost" className="text-white hover:bg-white/20 hover:text-white" onClick={() => setShowHint(!showHint)}>
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    {showHint ? "Ẩn Gợi Ý" : "Xem Sổ Tay (Gợi Ý)"}
+                  </Button>
+                  {showHint && <HintNotebook hint={currentNode.hint} />}
+                </div>
+              )}
+            </>
+        )}
       </div>
     </div>
   );

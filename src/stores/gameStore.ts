@@ -1,7 +1,11 @@
+// the-diplomats-journey/src/stores/gameStore.ts
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import storyData from '../data/story.json';
 import type { StoryNode, DebateQuestion } from '../types';
+
+// Define feedback types for visual effects.
+type ChoiceFeedback = 'good' | 'neutral' | 'bad' | null;
 
 interface GameState {
   currentNodeKey: string;
@@ -12,6 +16,7 @@ interface GameState {
   history: string[];
   playerName: string;
   completedMissions: string[]; // To track completed missions
+  lastChoiceFeedback: ChoiceFeedback; // State to trigger visual feedback
   playerId: string; // persistent unique id per browser
   roomId: string | null; // current joined room (ephemeral)
   isHost: boolean; // whether this client created the room
@@ -23,6 +28,7 @@ interface GameActions {
   answerDebateQuestion: (question: DebateQuestion, wasCorrect: boolean) => void;
   endGame: () => void;
   resetGame: () => void;
+  clearChoiceFeedback: () => void; // Action to reset feedback state
   joinRoom: (roomId: string, isHost?: boolean) => void;
   leaveRoom: () => void;
 }
@@ -32,6 +38,19 @@ interface GameComputed {
   completionTime: () => number;
   finalScore: () => number;
 }
+
+// Create a fallback node for when we can't find the requested node
+const createFallbackNode = (nodeKey: string): StoryNode => ({
+  tieuDe: 'Error: Story Node Not Found',
+  vanBan: `The story node "${nodeKey}" could not be found. This might be a navigation error.`,
+  hinhAnh: '',
+  luaChon: [
+    {
+      vanBan: 'Return to World Map',
+      nutTiepTheo: 'banDoTheGioi'
+    }
+  ]
+});
 
 export const useGameStore = create<GameState & GameActions & GameComputed>((set, get) => ({
   // Initial State
@@ -43,6 +62,7 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
   history: ['batDau'],
   playerName: '',
   completedMissions: [],
+  lastChoiceFeedback: null, // Initialize feedback state to null.
   playerId: ((): string => {
     if (typeof window === 'undefined') return 'server';
     const existing = localStorage.getItem('playerId');
@@ -64,14 +84,19 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       reputation: 0,
       currentNodeKey: 'banDoTheGioi', 
       history: ['batDau', 'banDoTheGioi'],
-      completedMissions: [], // Reset progress on new game
+      completedMissions: [],
     });
   },
   makeChoice: (nextNodeKey) => {
     const story = storyData as any;
     const nextNode = story[nextNodeKey];
 
-    // Check if the destination node completes a mission and update state
+    // If the next node doesn't exist, log error and don't navigate
+    if (!nextNode) {
+      console.error(`Story node "${nextNodeKey}" not found`);
+      return;
+    }
+
     if (nextNode.completedMissionId) {
       set(state => ({
         completedMissions: [...new Set([...state.completedMissions, nextNode.completedMissionId])]
@@ -80,12 +105,22 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
     
     const supportValue = nextNode.diemSo || 0;
     const repValue = nextNode.diemDanhVong || 0;
+    const totalChange = supportValue + repValue;
+
+    // Determine the feedback type based on the total point change from the choice.
+    let feedback: ChoiceFeedback = 'neutral'; // Default to yellow for neutral or minor positive choices.
+    if (totalChange >= 30) {
+      feedback = 'good'; // Green for significantly positive choices.
+    } else if (totalChange < 0) {
+      feedback = 'bad'; // Red for any choice with a negative outcome.
+    }
 
     set((state) => ({
       globalSupport: state.globalSupport + supportValue,
       reputation: state.reputation + repValue,
       currentNodeKey: nextNodeKey,
       history: [...state.history, nextNodeKey],
+      lastChoiceFeedback: feedback, // Set the feedback for the UI to consume.
     }));
   },
   answerDebateQuestion: (question, wasCorrect) => {
@@ -113,10 +148,14 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       endTime: null,
       history: ['batDau'],
       playerName: '',
-      completedMissions: [], // Also reset completed missions
+      completedMissions: [],
       roomId: null,
       isHost: false,
     });
+  },
+  // Action to reset the feedback state after the UI effect has been shown.
+  clearChoiceFeedback: () => {
+    set({ lastChoiceFeedback: null });
   },
   joinRoom: (roomId: string, isHost = false) => {
     set({ roomId, isHost });
@@ -125,12 +164,21 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
 
   // Computed Properties (Getters)
   currentStoryNode: () => {
-    return (storyData as any)[get().currentNodeKey] as StoryNode;
+    const currentKey = get().currentNodeKey;
+    const story = storyData as any;
+    const node = story[currentKey];
+    
+    // Return the found node or a fallback if not found
+    if (node) {
+      return node as StoryNode;
+    } else {
+      console.error(`Story node "${currentKey}" not found, using fallback`);
+      return createFallbackNode(currentKey);
+    }
   },
   completionTime: () => {
     const { startTime, endTime } = get();
     if (startTime === null) return 0;
-    // If game not ended yet, provide live elapsed seconds
     const effectiveEnd = endTime ?? Date.now();
     return (effectiveEnd - startTime) / 1000;
   },
