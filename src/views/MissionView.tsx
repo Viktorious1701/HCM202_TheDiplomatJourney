@@ -99,28 +99,46 @@ export const MissionView = () => {
   };
 
   return (
-    <div 
-      className="relative w-full h-screen bg-background"
-      style={{ 
-        backgroundImage: `url(${currentNode.hinhAnh})`,
-        backgroundSize: 'contain', 
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    // The main container provides the parchment-colored letterbox background.
+    <div className="relative w-full h-screen bg-background overflow-hidden">
+      
+      {/* Layer 1: Blurred Background. This covers the entire screen to provide color and atmosphere. */}
       <div
-        className="fixed inset-0 z-50 pointer-events-none transition-opacity duration-500"
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${currentNode.hinhAnh})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(16px) brightness(0.8)', // Heavy blur and slight dimming.
+          transform: 'scale(1.1)', // Scale up to hide blurred edges.
+        }}
+      />
+      
+      {/* Layer 2: Sharp, Contained Image. This is the main focus, guaranteed to be uncropped. */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          backgroundImage: `url(${currentNode.hinhAnh})`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      
+      {/* Choice feedback flash sits on top of the images but below the UI. */}
+      <div
+        className="fixed inset-0 z-20 pointer-events-none transition-opacity duration-500"
         style={{ backgroundColor: flashColor || 'transparent', opacity: flashColor ? 1 : 0 }}
       />
         
+      {/* Atmospheric tint for Hard Mode, sits on top of everything so far. */}
       <div className={cn(
-        "absolute inset-0 bg-black/10 z-0 transition-colors duration-500",
+        "absolute inset-0 bg-black/10 z-30 transition-colors duration-500 pointer-events-none",
         isHardMode && "bg-black/30"
       )} />
 
-      {/* The large gradient div that caused the fading has been removed. */}
-
-      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 z-20">
+      {/* The UI layer is positioned absolutely at the bottom with the highest z-index. */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 z-40">
         <div className="w-full max-w-4xl mx-auto space-y-6">
           {isTextVisible && (
               <>
