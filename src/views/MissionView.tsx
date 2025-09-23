@@ -50,7 +50,7 @@ export const MissionView = () => {
   // This function conditionally renders the right UI for the mission type
   const renderMissionContent = () => {
     if (currentNode.loaiNhiemVu === 'tranhLuan') {
-      return <DebateMission node={currentNode} />;
+      return <DebateMission />;
     }
 
     // Default to the standard choice-based UI

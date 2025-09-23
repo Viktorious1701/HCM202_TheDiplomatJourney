@@ -2,17 +2,16 @@
 // the-diplomats-journey/src/components/DebateMission.tsx
 import { useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
-import type { StoryNode } from '@/types';
 import { Button } from '@/components/ui/button';
 // CORRECTED: Added CardFooter to the import list.
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { CheckCircle, XCircle } from 'lucide-react';
 
 interface DebateMissionProps {
-  node: StoryNode;
+  // node prop removed (unused) – component derives current node from store
 }
 
-export const DebateMission = ({ node }: DebateMissionProps) => {
+export const DebateMission = ({}: DebateMissionProps) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<( 'tanThanh' | 'phanDoi' | null)[]>([]);
   const [showResults, setShowResults] = useState(false);

@@ -1,28 +1,13 @@
 // the-diplomats-journey/src/pages/LeaderboardPage.tsx
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getLeaderboard } from '@/services/leaderboardService';
-import type { LeaderboardEntry } from '@/types';
+import { useRealtimeLeaderboard } from '@/hooks/useRealtimeLeaderboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { HeroHeader } from '@/components/header';
 
 export default function LeaderboardPage() {
-  const [scores, setScores] = useState<LeaderboardEntry[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchScores = async () => {
-      setLoading(true);
-      // Fetch scores from the Supabase service on component mount
-      const fetchedScores = await getLeaderboard();
-      setScores(fetchedScores);
-      setLoading(false);
-    };
-
-    fetchScores();
-  }, []); // The empty dependency array ensures this runs only once on mount
+  const { entries: scores, loading } = useRealtimeLeaderboard();
 
   return (
     <>

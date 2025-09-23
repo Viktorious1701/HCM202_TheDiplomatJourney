@@ -12,6 +12,9 @@ interface GameState {
   history: string[];
   playerName: string;
   completedMissions: string[]; // To track completed missions
+  playerId: string; // persistent unique id per browser
+  roomId: string | null; // current joined room (ephemeral)
+  isHost: boolean; // whether this client created the room
 }
 
 interface GameActions {
@@ -20,6 +23,8 @@ interface GameActions {
   answerDebateQuestion: (question: DebateQuestion, wasCorrect: boolean) => void;
   endGame: () => void;
   resetGame: () => void;
+  joinRoom: (roomId: string, isHost?: boolean) => void;
+  leaveRoom: () => void;
 }
 
 interface GameComputed {
@@ -38,6 +43,16 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
   history: ['batDau'],
   playerName: '',
   completedMissions: [],
+  playerId: ((): string => {
+    if (typeof window === 'undefined') return 'server';
+    const existing = localStorage.getItem('playerId');
+    if (existing) return existing;
+    const id = (crypto?.randomUUID?.() || Math.random().toString(36).slice(2, 10));
+    localStorage.setItem('playerId', id);
+    return id;
+  })(),
+  roomId: null,
+  isHost: false,
 
   // Actions
   startGame: (playerName: string) => {
@@ -99,8 +114,14 @@ export const useGameStore = create<GameState & GameActions & GameComputed>((set,
       history: ['batDau'],
       playerName: '',
       completedMissions: [], // Also reset completed missions
+      roomId: null,
+      isHost: false,
     });
   },
+  joinRoom: (roomId: string, isHost = false) => {
+    set({ roomId, isHost });
+  },
+  leaveRoom: () => set({ roomId: null }),
 
   // Computed Properties (Getters)
   currentStoryNode: () => {

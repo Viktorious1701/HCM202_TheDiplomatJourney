@@ -4,6 +4,7 @@ import { MissionView } from '../views/MissionView';
 import { StartScreen } from '../views/StartScreen';
 import { WorldMapHub } from '../views/WorldMapHub';
 import { GameCompleteScreen } from '@/components/GameCompleteScreen';
+import { RoomHUD } from '@/components/RoomHUD';
 
 export function GamePage() {
   // CORRECTED: Select each piece of state individually. This is the standard way to prevent infinite loops with Zustand.
@@ -51,6 +52,7 @@ export function GamePage() {
   return (
     <div>
       {renderCurrentView()}
+      <RoomHUD />
     </div>
   );
 }
