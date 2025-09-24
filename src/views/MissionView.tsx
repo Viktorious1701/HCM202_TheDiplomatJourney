@@ -23,7 +23,7 @@ export const MissionView = () => {
     setIsTextVisible(false);
     const timer = setTimeout(() => {
       setIsTextVisible(true);
-    }, 1000); // Reduced delay for a snappier feel
+    }, 1000);
     return () => clearTimeout(timer);
   }, [currentNodeKey]);
 
@@ -99,9 +99,8 @@ export const MissionView = () => {
 
   return (
     <div className="relative w-full min-h-screen bg-background flex flex-col">
-      {/* Full-screen overlays for feedback and atmospheric effects are kept. */}
       <div
-        className="fixed inset-0 z-50 pointer-events-none transition-opacity duration-500"
+        className="fixed inset-0 z-[60] pointer-events-none transition-opacity duration-500"
         style={{ backgroundColor: flashColor || 'transparent', opacity: flashColor ? 1 : 0 }}
       />
       <div className={cn(
@@ -109,21 +108,16 @@ export const MissionView = () => {
         isHardMode && "bg-black/30"
       )} />
 
-      {/* Main container with a two-column layout on medium screens and up. */}
-      <main className="flex-grow flex flex-col md:flex-row p-4 md:p-8 gap-8 z-10">
-        {/* Image panel (the "slideshow") is now a dedicated column. */}
+      <main className="flex-grow flex flex-col md:flex-row p-4 md:p-8 gap-8 z-10 mr-16">
         <div className="w-full md:w-1/2 flex items-center justify-center h-1/2 md:h-auto md:max-h-[calc(100vh-4rem)]">
+          {/* The image no longer fades based on `isTextVisible`, ensuring it remains on screen during transitions. */}
           <img
             src={`/${currentNode.hinhAnh}`}
             alt={currentNode.tieuDe}
-            className={cn(
-              "transition-opacity duration-1000 w-full h-full object-contain rounded-lg shadow-lg border-4 border-foreground/20",
-              isTextVisible ? "opacity-100" : "opacity-0"
-            )}
+            className="w-full h-full object-contain rounded-lg shadow-lg border-4 border-foreground/20"
           />
         </div>
 
-        {/* Narrative and choices panel is in the second column. */}
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
           <div className="w-full max-w-2xl space-y-6">
             <div

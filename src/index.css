@@ -149,3 +149,35 @@ button:focus-visible {
     /* background-image: url('/assets/images/parchment-texture.jpg'); */
   }
 }
+
+/* Custom styles for UI components to match the project's historical theme. */
+@layer components {
+  /* The tab list container is made transparent to blend into the sidebar. */
+  .themed-tabs-list {
+    @apply bg-transparent p-0;
+  }
+
+  /* Inactive tabs are styled to look like bordered parchment buttons. */
+  .themed-tabs-trigger {
+    @apply border border-border text-muted-foreground;
+  }
+
+  /* The active tab uses the dark 'Ink' color for the background and light 'Parchment' for the text. */
+  .themed-tabs-trigger[data-state="active"] {
+    @apply bg-foreground text-background shadow;
+  }
+
+  /* The accordion item has its default border removed and gets vertical spacing. */
+  .themed-accordion-item {
+    @apply border-none mb-2;
+  }
+
+  /* The accordion trigger is styled as a distinct, rounded button. */
+  .themed-accordion-trigger {
+    @apply flex flex-1 items-center justify-between p-3 text-sm font-semibold;
+    @apply rounded-md;
+    /* It uses the dark 'Ink' background with light 'Parchment' text, replacing the jarring black. */
+    @apply bg-foreground text-background;
+    @apply transition-colors hover:bg-accent hover:text-accent-foreground;
+  }
+}

@@ -4,15 +4,17 @@ import { MissionView } from '../views/MissionView';
 import { StartScreen } from '../views/StartScreen';
 import { WorldMapHub } from '../views/WorldMapHub';
 import { GameCompleteScreen } from '@/components/GameCompleteScreen';
-import { RoomHUD } from '@/components/RoomHUD';
+import { InGameHUD } from '@/components/InGameHUD';
+import { ScoreUpdateScreen } from '@/components/ScoreUpdateScreen'; // Import the new screen.
 
 export function GamePage() {
-  // CORRECTED: Select each piece of state individually. This is the standard way to prevent infinite loops with Zustand.
   const currentNodeKey = useGameStore((state) => state.currentNodeKey);
   const currentStoryNode = useGameStore((state) => state.currentStoryNode);
   const endGame = useGameStore((state) => state.endGame);
   const finalScore = useGameStore((state) => state.finalScore);
   const completionTime = useGameStore((state) => state.completionTime);
+  // Get the state that controls the visibility of the intermediate score screen.
+  const viewingScoreUpdate = useGameStore((state) => state.viewingScoreUpdate);
 
   useEffect(() => {
     if (currentNodeKey === 'ketThucGame') {
@@ -20,7 +22,6 @@ export function GamePage() {
     }
   }, [currentNodeKey, endGame]);
 
-  // Now, call the selected function inside the component.
   const currentNode = currentStoryNode();
 
   if (!currentNode) {
@@ -52,7 +53,9 @@ export function GamePage() {
   return (
     <div>
       {renderCurrentView()}
-      <RoomHUD />
+      {/* Conditionally render the ScoreUpdateScreen as an overlay. */}
+      {viewingScoreUpdate && <ScoreUpdateScreen />}
+      <InGameHUD />
     </div>
   );
 }
