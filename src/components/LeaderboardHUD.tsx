@@ -1,7 +1,7 @@
 import { useGameStore } from '@/stores/gameStore';
 import { useRealtimeLeaderboard } from '@/hooks/useRealtimeLeaderboard';
 import clsx from 'clsx';
-import { LiveSessionRanking } from './LiveSessionRanking'; // Import the new reusable component.
+import { LiveSessionRanking } from './LiveSessionRanking';
 
 export function LeaderboardHUD() {
   const playerName = useGameStore(s => s.playerName);
@@ -9,9 +9,9 @@ export function LeaderboardHUD() {
   const reputation = useGameStore(s => s.reputation);
   const { entries: leaderboard } = useRealtimeLeaderboard();
 
+  // The outer div and header are simplified as they are now contained within the sidebar tabs.
   return (
-    <div>
-      <h3 className="font-semibold text-sm mb-2">Live Game Stats</h3>
+    <div className="space-y-4">
       <section>
         <h4 className="font-semibold text-xs mb-1 tracking-wide text-muted-foreground">Your Current Score</h4>
         <div className="grid grid-cols-2 gap-2 text-[11px]">
@@ -26,13 +26,12 @@ export function LeaderboardHUD() {
         </div>
       </section>
 
-      <section className="mt-4">
+      <section>
         <h4 className="font-semibold text-xs mb-1 tracking-wide text-muted-foreground">Live Session Ranking</h4>
-        {/* Use the new reusable component for the live ranking. */}
         <LiveSessionRanking />
       </section>
 
-      <section className="mt-4">
+      <section>
         <h4 className="font-semibold text-xs mb-1 tracking-wide text-muted-foreground">All-Time Top 10</h4>
         <div className="max-h-36 overflow-auto rounded border border-border/60 bg-muted/30 text-[11px] divide-y divide-border/40">
           {leaderboard.length === 0 && <div className="p-2 text-muted-foreground">No scores</div>}

@@ -16,40 +16,57 @@ export function InGameHUD() {
 
   return (
     <>
-      <div className="fixed top-4 right-4 z-[100]">
-        <Button
-          size="icon"
-          variant="secondary"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          aria-label={isSidebarOpen ? "Close notebook" : "Open notebook"}
-        >
-          {isSidebarOpen ? <X /> : <BookText />}
-        </Button>
-      </div>
+      {!isSidebarOpen && (
+        <div className="fixed top-4 right-4 z-[100]">
+          <Button
+            size="icon"
+            variant="secondary"
+            onClick={() => setIsSidebarOpen(true)}
+            aria-label="Open notebook"
+          >
+            <BookText />
+          </Button>
+        </div>
+      )}
 
       <aside
         className={cn(
-          "fixed top-0 right-0 h-full bg-background/90 backdrop-blur-sm border-l border-border/50 z-50 transition-transform duration-300 ease-in-out",
-          "w-80 p-4 overflow-y-auto",
+          "fixed top-0 right-0 h-full bg-background/90 backdrop-blur-sm border-l border-border/50 z-50 transition-transform duration-300 ease-in-out flex flex-col",
+          "w-96 p-4 space-y-4",
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <Tabs defaultValue="notebook" className="w-full">
-          {/* The custom themed classes are applied here. */}
-          <TabsList className="grid w-full grid-cols-3 themed-tabs-list">
+        <div className="flex items-center justify-between flex-shrink-0 border-b border-border/50 pb-2">
+          <h2 className="text-lg font-semibold text-foreground">Diplomat's Notebook</h2>
+          {/* The close button is styled to use the 'accent' color, matching the other UI elements. */}
+          <Button
+            size="icon"
+            variant="default"
+            onClick={() => setIsSidebarOpen(false)}
+            aria-label="Close notebook"
+            className="-mr-2 bg-accent text-accent-foreground hover:bg-accent/90"
+          >
+            <X />
+          </Button>
+        </div>
+
+        <Tabs defaultValue="notebook" className="w-full flex-grow flex flex-col">
+          <TabsList className="grid w-full grid-cols-3 themed-tabs-list flex-shrink-0">
             <TabsTrigger value="notebook" className="themed-tabs-trigger">Notebook</TabsTrigger>
             <TabsTrigger value="leaderboard" className="themed-tabs-trigger">Scores</TabsTrigger>
             <TabsTrigger value="chat" className="themed-tabs-trigger">Chat</TabsTrigger>
           </TabsList>
-          <TabsContent value="notebook" className="mt-4">
-            <KnowledgeHub />
-          </TabsContent>
-          <TabsContent value="leaderboard" className="mt-4">
-            <LeaderboardHUD />
-          </TabsContent>
-          <TabsContent value="chat" className="mt-4">
-            <ChatHUD />
-          </TabsContent>
+          <div className="mt-4 flex-grow overflow-y-auto min-h-0">
+            <TabsContent value="notebook">
+              <KnowledgeHub />
+            </TabsContent>
+            <TabsContent value="leaderboard">
+              <LeaderboardHUD />
+            </TabsContent>
+            <TabsContent value="chat" className="h-full">
+              <ChatHUD />
+            </TabsContent>
+          </div>
         </Tabs>
       </aside>
     </>

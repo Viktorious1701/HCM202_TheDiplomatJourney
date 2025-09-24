@@ -157,14 +157,14 @@ button:focus-visible {
     @apply bg-transparent p-0;
   }
 
-  /* Inactive tabs are styled to look like bordered parchment buttons. */
+  /* Inactive tabs are now styled with the soft tan 'accent' color, replacing the dark 'ink' color. */
   .themed-tabs-trigger {
-    @apply border border-border text-muted-foreground;
+    @apply bg-accent text-accent-foreground border-border;
   }
 
-  /* The active tab uses the dark 'Ink' color for the background and light 'Parchment' for the text. */
+  /* The active tab is styled to look like part of the parchment background. */
   .themed-tabs-trigger[data-state="active"] {
-    @apply bg-foreground text-background shadow;
+    @apply bg-background text-foreground shadow-inner border-primary;
   }
 
   /* The accordion item has its default border removed and gets vertical spacing. */
@@ -172,12 +172,12 @@ button:focus-visible {
     @apply border-none mb-2;
   }
 
-  /* The accordion trigger is styled as a distinct, rounded button. */
+  /* The accordion trigger is now styled with the soft tan 'accent' color by default, replacing the dark 'ink' color. */
   .themed-accordion-trigger {
     @apply flex flex-1 items-center justify-between p-3 text-sm font-semibold;
     @apply rounded-md;
-    /* It uses the dark 'Ink' background with light 'Parchment' text, replacing the jarring black. */
-    @apply bg-foreground text-background;
-    @apply transition-colors hover:bg-accent hover:text-accent-foreground;
+    @apply bg-accent text-accent-foreground;
+    /* On hover, it uses the primary rust color for clear feedback. */
+    @apply transition-colors hover:no-underline hover:bg-primary hover:text-primary-foreground;
   }
 }
