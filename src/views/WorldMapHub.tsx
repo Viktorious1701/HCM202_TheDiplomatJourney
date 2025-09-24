@@ -11,7 +11,7 @@ export const WorldMapHub = () => {
   const currentNode = currentStoryNode();
 
   const handleKnowledgeHubClick = () => {
-    alert("Knowledge Hub / Presentation Slides would open here.");
+    alert("This would open the Notebook panel.");
   };
 
   const missionSequence = [
@@ -22,15 +22,13 @@ export const WorldMapHub = () => {
   ];
 
   return (
-    // The main container now acts as a full-screen map background.
+    // Added top padding to account for the new fixed navbar.
     <div
-      className="relative w-full h-screen bg-cover bg-center flex flex-col items-center justify-center text-center p-4"
+      className="relative w-full h-screen bg-cover bg-center flex flex-col items-center justify-center text-center p-4 pt-20"
       style={{ backgroundImage: `url(${currentNode.hinhAnh})` }}
     >
-      {/* A dark overlay is added to improve contrast and focus. */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/30 z-0" />
 
-      {/* Narrative text is now a semi-transparent card on top of the map. */}
       <div className="relative z-10 text-white bg-black/40 backdrop-blur-sm p-6 rounded-lg shadow-lg mb-8">
         <h1 className="text-4xl md:text-5xl font-bold font-heading drop-shadow-md">
           {currentNode.tieuDe}
@@ -40,7 +38,6 @@ export const WorldMapHub = () => {
         </p>
       </div>
 
-      {/* Mission markers are positioned absolutely over the map background. */}
       <div className="absolute top-0 left-0 w-full h-full z-10">
         {missionSequence.map((mission) => {
           const isCompleted = completedMissions.includes(mission.id);
@@ -71,7 +68,9 @@ export const WorldMapHub = () => {
         })}
       </div>
 
-      <div className="absolute bottom-6 right-6 z-20">
+      {/* This button is now redundant as its function is in the main navbar, but is kept for logical consistency. */}
+      {/* In a real project, this might be removed or repurposed. */}
+      <div className="absolute bottom-6 right-6 z-20 opacity-0 pointer-events-none">
         <Button size="icon" variant="secondary" onClick={handleKnowledgeHubClick}>
           <BookText />
         </Button>

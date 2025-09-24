@@ -108,9 +108,9 @@ export const MissionView = () => {
         isHardMode && "bg-black/30"
       )} />
 
-      <main className="flex-grow flex flex-col md:flex-row p-4 md:p-8 gap-8 z-10 mr-16">
-        <div className="w-full md:w-1/2 flex items-center justify-center h-1/2 md:h-auto md:max-h-[calc(100vh-4rem)]">
-          {/* The image no longer fades based on `isTextVisible`, ensuring it remains on screen during transitions. */}
+      {/* Added top padding to push content below the new fixed navbar. Removed side margin. */}
+      <main className="flex-grow flex flex-col md:flex-row p-4 md:p-8 gap-8 z-10 pt-20">
+        <div className="w-full md:w-1/2 flex items-center justify-center h-1/2 md:h-auto md:max-h-[calc(100vh-6.5rem)]">
           <img
             src={`/${currentNode.hinhAnh}`}
             alt={currentNode.tieuDe}
