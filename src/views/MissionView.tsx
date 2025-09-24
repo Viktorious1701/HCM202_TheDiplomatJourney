@@ -1,4 +1,3 @@
-// the-diplomats-journey/src/views/MissionView.tsx
 import { useState, useEffect } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { Button } from '@/components/ui/button';
@@ -14,7 +13,7 @@ export const MissionView = () => {
   const currentNodeKey = useGameStore((state) => state.currentNodeKey);
   const lastChoiceFeedback = useGameStore((state) => state.lastChoiceFeedback);
   const clearChoiceFeedback = useGameStore((state) => state.clearChoiceFeedback);
-  
+
   const [showHint, setShowHint] = useState(false);
   const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
   const [flashColor, setFlashColor] = useState<string | null>(null);
@@ -24,7 +23,7 @@ export const MissionView = () => {
     setIsTextVisible(false);
     const timer = setTimeout(() => {
       setIsTextVisible(true);
-    }, 2000);
+    }, 1000); // Reduced delay for a snappier feel
     return () => clearTimeout(timer);
   }, [currentNodeKey]);
 
@@ -50,7 +49,7 @@ export const MissionView = () => {
   if (!currentNode) {
     return <div>Loading...</div>;
   }
-  
+
   const isHardMode = currentNodeKey.includes('_HardMode');
 
   const handleChoiceClick = (choice: Choice) => {
@@ -58,24 +57,24 @@ export const MissionView = () => {
     setTimeout(() => {
       makeChoice(choice.nutTiepTheo);
       setSelectedChoice(null);
-      setShowHint(false); 
+      setShowHint(false);
     }, 500);
   };
-  
+
   const ChoiceButton = ({ choice, onClick, isSelected }: { choice: Choice, onClick: () => void, isSelected: boolean }) => {
     return (
-        <Button
-            variant="outline"
-            className={cn(
-                "w-full justify-start text-left h-auto py-3 px-4 whitespace-normal bg-background/60 backdrop-blur-sm text-foreground border-foreground/30 hover:bg-accent hover:text-accent-foreground",
-                isSelected && "ring-2 ring-ring",
-                !isTextVisible && "opacity-50 cursor-not-allowed"
-            )}
-            onClick={onClick}
-            disabled={!isTextVisible}
-        >
-            {choice.vanBan}
-        </Button>
+      <Button
+        variant="outline"
+        className={cn(
+          "w-full justify-start text-left h-auto py-3 px-4 whitespace-normal bg-background/80 border-foreground/30 hover:bg-accent hover:text-accent-foreground",
+          isSelected && "ring-2 ring-ring",
+          !isTextVisible && "opacity-50 cursor-not-allowed"
+        )}
+        onClick={onClick}
+        disabled={!isTextVisible}
+      >
+        {choice.vanBan}
+      </Button>
     );
   };
 
@@ -99,72 +98,63 @@ export const MissionView = () => {
   };
 
   return (
-    // The main container provides the parchment-colored letterbox background.
-    <div className="relative w-full h-screen bg-background overflow-hidden">
-      
-      {/* Layer 1: Blurred Background. This covers the entire screen to provide color and atmosphere. */}
+    <div className="relative w-full min-h-screen bg-background flex flex-col">
+      {/* Full-screen overlays for feedback and atmospheric effects are kept. */}
       <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `url(${currentNode.hinhAnh})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'blur(16px) brightness(0.8)', // Heavy blur and slight dimming.
-          transform: 'scale(1.1)', // Scale up to hide blurred edges.
-        }}
-      />
-      
-      {/* Layer 2: Sharp, Contained Image. This is the main focus, guaranteed to be uncropped. */}
-      <div
-        className="absolute inset-0 z-10"
-        style={{
-          backgroundImage: `url(${currentNode.hinhAnh})`,
-          backgroundSize: 'contain',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      
-      {/* Choice feedback flash sits on top of the images but below the UI. */}
-      <div
-        className="fixed inset-0 z-20 pointer-events-none transition-opacity duration-500"
+        className="fixed inset-0 z-50 pointer-events-none transition-opacity duration-500"
         style={{ backgroundColor: flashColor || 'transparent', opacity: flashColor ? 1 : 0 }}
       />
-        
-      {/* Atmospheric tint for Hard Mode, sits on top of everything so far. */}
       <div className={cn(
-        "absolute inset-0 bg-black/10 z-30 transition-colors duration-500 pointer-events-none",
+        "fixed inset-0 bg-black/10 z-40 transition-colors duration-500 pointer-events-none",
         isHardMode && "bg-black/30"
       )} />
 
-      {/* The UI layer is positioned absolutely at the bottom with the highest z-index. */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 z-40">
-        <div className="w-full max-w-4xl mx-auto space-y-6">
-          {isTextVisible && (
-              <>
-                <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-foreground/20 shadow-md">
-                    <h1 className="text-3xl font-bold mb-4 text-foreground drop-shadow-lg">{currentNode.tieuDe}</h1>
-                    <p 
-                        className="text-xl text-foreground/90 leading-relaxed min-h-[100px] drop-shadow-md"
-                        dangerouslySetInnerHTML={{ __html: (currentNode.vanBan || '').replace(/\n/g, '<br />') }} 
-                    />
-                </div>
-
-                {renderMissionContent()}
-
-                {currentNode.hint && (
-                  <div className="text-center">
-                    <Button variant="ghost" className="text-foreground hover:bg-accent hover:text-accent-foreground" onClick={() => setShowHint(!showHint)}>
-                      <BookOpen className="mr-2 h-4 w-4" />
-                      {showHint ? "Ẩn Gợi Ý" : "Xem Sổ Tay (Gợi Ý)"}
-                    </Button>
-                    {showHint && <HintNotebook hint={currentNode.hint} />}
-                  </div>
-                )}
-              </>
-          )}
+      {/* Main container with a two-column layout on medium screens and up. */}
+      <main className="flex-grow flex flex-col md:flex-row p-4 md:p-8 gap-8 z-10">
+        {/* Image panel (the "slideshow") is now a dedicated column. */}
+        <div className="w-full md:w-1/2 flex items-center justify-center h-1/2 md:h-auto md:max-h-[calc(100vh-4rem)]">
+          <img
+            src={`/${currentNode.hinhAnh}`}
+            alt={currentNode.tieuDe}
+            className={cn(
+              "transition-opacity duration-1000 w-full h-full object-contain rounded-lg shadow-lg border-4 border-foreground/20",
+              isTextVisible ? "opacity-100" : "opacity-0"
+            )}
+          />
         </div>
-      </div>
+
+        {/* Narrative and choices panel is in the second column. */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+          <div className="w-full max-w-2xl space-y-6">
+            <div
+              className={cn(
+                "transition-opacity duration-1000 delay-500",
+                isTextVisible ? "opacity-100" : "opacity-0"
+              )}
+            >
+              <div className="bg-background/80 p-6 rounded-lg border border-foreground/20 shadow-md mb-6">
+                <h1 className="text-3xl font-bold mb-4 text-foreground drop-shadow-lg">{currentNode.tieuDe}</h1>
+                <p
+                  className="text-xl text-foreground/90 leading-relaxed min-h-[100px] drop-shadow-md"
+                  dangerouslySetInnerHTML={{ __html: (currentNode.vanBan || '').replace(/\n/g, '<br />') }}
+                />
+              </div>
+
+              {renderMissionContent()}
+
+              {currentNode.hint && (
+                <div className="text-center mt-4">
+                  <Button variant="ghost" className="text-foreground hover:bg-accent hover:text-accent-foreground" onClick={() => setShowHint(!showHint)}>
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    {showHint ? "Ẩn Gợi Ý" : "Xem Sổ Tay (Gợi Ý)"}
+                  </Button>
+                  {showHint && <HintNotebook hint={currentNode.hint} />}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

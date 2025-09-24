@@ -8,16 +8,16 @@ interface HintNotebookProps {
 
 export const HintNotebook = ({ hint }: HintNotebookProps) => {
   return (
-    // The hint card is now styled with a semi-transparent dark background to match the visual novel aesthetic.
-    <Card className="mt-4 bg-black/70 backdrop-blur-md text-white border-white/20">
+    // Styles are updated to fit a non-overlay context, matching the parchment theme.
+    <Card className="mt-4 bg-accent/10 text-foreground border-accent/50">
       <CardHeader>
-        <CardTitle className="flex items-center text-lg text-yellow-400">
-          <Lightbulb className="mr-2 h-5 w-5" />
+        <CardTitle className="flex items-center text-lg text-accent-foreground">
+          <Lightbulb className="mr-2 h-5 w-5 text-yellow-600" />
           {hint.tieuDe}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-white/90">{hint.vanBan}</p>
+        <p className="text-muted-foreground">{hint.vanBan}</p>
       </CardContent>
     </Card>
   );
