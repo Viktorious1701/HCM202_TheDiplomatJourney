@@ -29,7 +29,7 @@ const menuItems = [
     { name: 'Missions', href: '/game' },
     { name: 'Timeline', href: '/timeline' },
     { name: 'Presentations', href: '/presentations' },
-    { name: 'Learn More', href: '#about' },
+    { name: 'Learn More', href: '/about' },
 ];
 
 export const HeroHeader = () => {

@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useGameStore } from '@/stores/gameStore';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { CheckCircle, XCircle } from 'lucide-react';
 
 type DebateMissionProps = object
@@ -12,6 +11,8 @@ export const DebateMission = ({ }: DebateMissionProps) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<('tanThanh' | 'phanDoi' | null)[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [flash, setFlash] = useState<null | 'correct' | 'wrong'>(null);
+  const [locked, setLocked] = useState(false);
 
   const makeChoice = useGameStore((state) => state.makeChoice);
   const currentStoryNode = useGameStore((state) => state.currentStoryNode);
@@ -22,18 +23,26 @@ export const DebateMission = ({ }: DebateMissionProps) => {
   const currentQuestion = debateQuestions[currentQuestionIndex];
 
   const handleAnswer = (answer: 'tanThanh' | 'phanDoi') => {
+    if (locked) return;
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = answer;
     setAnswers(newAnswers);
 
     const isCorrect = answer === currentQuestion.dapAnDung;
     answerDebateQuestion(currentQuestion, isCorrect);
-
-    if (currentQuestionIndex < debateQuestions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      setShowResults(true);
-    }
+    // Trigger a subtle, smoother feedback and lock buttons before moving on
+    setFlash(isCorrect ? 'correct' : 'wrong');
+    setLocked(true);
+    const animationMs = isCorrect ? 600 : 450; // keep in sync with CSS durations
+    setTimeout(() => {
+      setFlash(null);
+      setLocked(false);
+      if (currentQuestionIndex < debateQuestions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      } else {
+        setShowResults(true);
+      }
+    }, animationMs);
   };
 
   const handleFinishDebate = () => {
@@ -71,13 +80,13 @@ export const DebateMission = ({ }: DebateMissionProps) => {
   }
 
   return (
-    <div className="text-white text-center">
+    <div className={"text-white text-center"}>
       <p className="text-xl font-semibold mb-6">{currentQuestion.vanBan}</p>
-      <div className="flex justify-center gap-4">
-        <Button onClick={() => handleAnswer('tanThanh')} className="bg-green-600 hover:bg-green-700">
+      <div className={`flex justify-center gap-4 ${flash === 'correct' ? 'animate-correct-pulse' : ''} ${flash === 'wrong' ? 'animate-wrong-shake' : ''}`}>
+        <Button onClick={() => handleAnswer('tanThanh')} disabled={locked} className="bg-green-600 hover:bg-green-700 disabled:opacity-60 disabled:cursor-not-allowed">
           Tán thành (Agree)
         </Button>
-        <Button onClick={() => handleAnswer('phanDoi')} className="bg-red-600 hover:bg-red-700">
+        <Button onClick={() => handleAnswer('phanDoi')} disabled={locked} className="bg-red-600 hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed">
           Phản đối (Disagree)
         </Button>
       </div>

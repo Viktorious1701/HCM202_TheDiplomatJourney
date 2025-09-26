@@ -133,6 +133,33 @@ const PresentationPage: React.FC = () => {
     "Đoàn kết quốc tế là sức mạnh to lớn của các dân tộc yêu chuộng hòa bình"
   ];
 
+  // Tổng quan (dịch từ mô tả người dùng)
+  const leaderOverview = {
+    keyThemes: [
+      "Lãnh tụ cách mạng, người đặt nền móng cho Việt Nam hiện đại",
+      "Kiến trúc sư của khối đại đoàn kết dân tộc và phong trào giành độc lập",
+      "Chiến lược gia ngoại giao đề cao nhân nghĩa và giải pháp hòa bình thay vì bạo lực",
+      "Nhà tư tưởng về đoàn kết, gắn bó các tầng lớp xã hội",
+      "Người cổ vũ hợp tác quốc tế trong sự nghiệp giải phóng dân tộc",
+    ],
+    achievements: [
+      "Lãnh đạo phong trào giành độc lập của Việt Nam",
+      "Xây dựng chiến lược đại đoàn kết toàn dân tộc",
+      "Đặt nền tảng nguyên lý cho con đường xã hội chủ nghĩa Việt Nam",
+      "Xây dựng đường lối ngoại giao lấy nhân nghĩa làm gốc, hạn chế bạo lực",
+    ],
+    philosophy: [
+      "Nhấn mạnh sự thống nhất giữa 'dân' và 'nhân dân'",
+      "Chủ trương không phân biệt (giàu nghèo, tuổi tác, giới tính, địa vị xã hội)",
+      "Kêu gọi phát huy sức mạnh tập thể từ sự đa dạng",
+    ],
+    timeline: [
+      { year: "1995", note: "Công bố các công trình chiến lược về đại đoàn kết dân tộc" },
+      { year: "2002–2011", note: "Xuất bản các bộ sưu tập lớn về Toàn tập và tư tưởng ngoại giao của Người" },
+      { year: "Hiện nay", note: "Tư tưởng của Người vẫn có ý nghĩa sâu sắc đối với đời sống chính trị Việt Nam hiện đại" },
+    ],
+  } as const;
+
   // Animation effect for sections
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -208,16 +235,113 @@ const PresentationPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Sections Container - Horizontal Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pb-12">
+            {/* Tổng quan: Chủ đề, Thành tựu, Triết lý, Mốc thời gian */}
+            <div className="py-6 md:py-10">
+              <div className="bg-background/80 backdrop-blur-sm border rounded-xl p-6 md:p-8 shadow-lg">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Tổng quan: Lãnh đạo, Thành tựu, Triết lý và Mốc thời gian
+                  </h3>
+                  <p className="text-muted-foreground mt-2 text-sm md:text-base">
+                    Bức tranh khái quát bổ sung cho Chương 5 về đại đoàn kết và đoàn kết quốc tế
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Key Themes */}
+                  <div className="rounded-lg border bg-white/70 p-5 hover:shadow-md transition-shadow">
+                    <h4 className="font-bold text-primary text-lg mb-3">Chủ đề chính</h4>
+                    <ul className="space-y-2 text-sm text-gray-700">
+                      {leaderOverview.keyThemes.map((t, i) => (
+                        <li key={i} className="flex gap-2 items-start">
+                          <span className="mt-1 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></span>
+                          <span>{t}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Major Achievements */}
+                  <div className="rounded-lg border bg-white/70 p-5 hover:shadow-md transition-shadow">
+                    <h4 className="font-bold text-blue-600 text-lg mb-3">Thành tựu nổi bật</h4>
+                    <ul className="space-y-2 text-sm text-gray-700">
+                      {leaderOverview.achievements.map((a, i) => (
+                        <li key={i} className="flex gap-2 items-start">
+                          <span className="mt-1 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0"></span>
+                          <span>{a}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Core Philosophy */}
+                  <div className="rounded-lg border bg-white/70 p-5 hover:shadow-md transition-shadow">
+                    <h4 className="font-bold text-emerald-600 text-lg mb-3">Triết lý cốt lõi</h4>
+                    <ul className="space-y-2 text-sm text-gray-700">
+                      {leaderOverview.philosophy.map((p, i) => (
+                        <li key={i} className="flex gap-2 items-start">
+                          <span className="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Timeline */}
+                  <div className="rounded-lg border bg-white/70 p-5 hover:shadow-md transition-shadow">
+                    <h4 className="font-bold text-purple-600 text-lg mb-3">Các mốc thời gian</h4>
+                    <ol className="relative border-s-2 border-purple-200 ps-4 space-y-4">
+                      {leaderOverview.timeline.map((item, i) => (
+                        <li key={i} className="ms-2">
+                          <div className="absolute -start-[5px] mt-1.5 w-2.5 h-2.5 rounded-full bg-purple-500"></div>
+                          <div className="inline-flex items-center gap-2">
+                            <span className="text-xs font-semibold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded">
+                              {item.year}
+                            </span>
+                            <span className="text-sm text-gray-700">{item.note}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Khái quát tư tưởng đại đoàn kết của Hồ Chí Minh */}
+            <div className="py-4 md:py-8">
+              <div className="rounded-xl border bg-gradient-to-br from-primary/5 via-blue-50/30 to-emerald-50/30 p-6 md:p-8">
+                <h3 className="text-xl md:text-2xl font-semibold text-primary mb-4">
+                  Khái quát tư tưởng đại đoàn kết của Hồ Chí Minh
+                </h3>
+                <div className="space-y-4 text-gray-700 leading-relaxed">
+                  <p>
+                    Hồ Chí Minh (1890–1969) là lãnh tụ vĩ đại của dân tộc Việt Nam, nhà tư tưởng lớn, người chủ xướng và phát triển tư tưởng đại đoàn kết toàn dân tộc. Theo tư tưởng Hồ Chí Minh, đại đoàn kết là vấn đề sống còn, là cội nguồn sức mạnh đưa cách mạng Việt Nam đến thành công. Người cho rằng để xây dựng khối đại đoàn kết phải lấy lợi ích chung làm điểm quy tụ, tôn trọng những lợi ích khác biệt chính đáng, kế thừa truyền thống yêu nước, nhân nghĩa, đoàn kết của dân tộc. Hồ Chí Minh nhấn mạnh vai trò then chốt của nhân dân — chủ thể quyết định mọi thắng lợi, đồng thời đề cao sự khoan dung, độ lượng, niềm tin sâu sắc vào nhân dân.
+                  </p>
+                  <p>
+                    Trong suốt sự nghiệp cách mạng, Hồ Chí Minh luôn khuyến khích xây dựng Mặt trận dân tộc thống nhất trên nền tảng liên minh công — nông — trí thức, dưới sự lãnh đạo của Đảng, hoạt động theo nguyên tắc hiệp thương dân chủ. Qua các thời kỳ khác nhau, Mặt trận có thể thay đổi tên gọi nhưng bản chất vẫn không đổi — là nơi quy tụ, tập hợp đông đảo giai cấp, tầng lớp, dân tộc, tôn giáo, đảng phái, tổ chức yêu nước ở trong và ngoài nước vì mục tiêu độc lập dân tộc, hạnh phúc của nhân dân.
+                  </p>
+                  <p>
+                    Tư tưởng đại đoàn kết của Hồ Chí Minh không tách rời với đoàn kết quốc tế, kết hợp sức mạnh dân tộc với sức mạnh thời đại, tạo nên nguồn lực vô địch giúp cách mạng Việt Nam giữ vững độc lập, phát triển và góp phần vào lý luận cách mạng thế giới.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Sections Container - Horizontal Grid Layout (lg: 6 cols, each card spans 2) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-8 pb-12">
               {chapterSections.map((section, index) => (
                 <div 
                   key={section.id}
                   data-section-index={index}
-                  className={`transform transition-all duration-1000 ${
+                  className={`transform transition-all duration-1000 lg:col-span-2 ${
                     visibleSections.includes(index) 
                       ? 'translate-y-0 opacity-100' 
                       : 'translate-y-20 opacity-0'
+                  } ${
+                    // Center the last row when it has two items (for lg: 3 columns)
+                    chapterSections.length % 3 === 2 && index === chapterSections.length - 2
+                      ? 'lg:col-start-2'
+                      : ''
                   }`}
                   style={{ animationDelay: `${index * 200}ms` }}
                 >
