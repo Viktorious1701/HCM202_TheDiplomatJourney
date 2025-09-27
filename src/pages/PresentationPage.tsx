@@ -13,7 +13,27 @@ interface ChapterSection {
 
 // Lightweight wrapper to render the web component without JSX intrinsic type errors
 const ModelViewer = (props: any) => {
-  return (React as any).createElement('model-viewer', props);
+  // Map common camelCase props to dashed-attribute names expected by model-viewer
+  const map: Record<string, string> = {
+    cameraControls: 'camera-controls',
+    autoRotate: 'auto-rotate',
+    shadowIntensity: 'shadow-intensity',
+    shadowSoftness: 'shadow-softness',
+    interactionPrompt: 'interaction-prompt',
+    cameraOrbit: 'camera-orbit',
+    fieldOfView: 'field-of-view',
+    environmentImage: 'environment-image',
+    skyboxImage: 'skybox-image',
+    toneMapping: 'tone-mapping',
+    disableZoom: 'disable-zoom',
+    arModes: 'ar-modes',
+  };
+  const mapped: any = {};
+  Object.entries(props || {}).forEach(([k, v]) => {
+    const target = map[k] ?? k;
+    mapped[target] = v;
+  });
+  return (React as any).createElement('model-viewer', mapped);
 };
 
 const PresentationPage: React.FC = () => {
@@ -335,19 +355,42 @@ const PresentationPage: React.FC = () => {
                   </div>
                   {/* 3D model viewer */}
                   <div className="lg:col-span-5">
-                    <div className="rounded-lg border bg-white/60 backdrop-blur-sm p-2">
+                    <div className="relative rounded-xl overflow-hidden ring-1 ring-black/10 shadow-xl">
+                      {/* Modern stylized Vietnamese flag: red gradient field */}
+                      <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#B40018] via-[#D81E24] to-[#E71D2B]" />
+                      {/* Soft vignette edges to focus the model */}
+                      <div className="absolute inset-0 z-0" style={{
+                        background: 'radial-gradient(80% 80% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.25) 100%)'
+                      }} />
+                      {/* Centered golden star with glow */}
+                      <div className="absolute inset-0 z-0 flex items-center justify-center">
+                        <div className="relative" style={{ width: '62%', maxWidth: 520 }}>
+                          <div className="absolute -inset-6 rounded-full blur-2xl opacity-40" style={{
+                            background: 'radial-gradient(circle, rgba(255,221,0,0.55) 0%, rgba(255,221,0,0) 70%)'
+                          }} />
+                          <svg viewBox="-1 -1 2 2" className="relative block w-full h-auto opacity-95">
+                            <polygon fill="#FFDD00" points="0,-1 0.2245,-0.309 0.9511,-0.309 0.3633,0.118 0.5878,0.809 0,0.381 -0.5878,0.809 -0.3633,0.118 -0.9511,-0.309 -0.2245,-0.309"/>
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="relative z-10 p-3">
                       <ModelViewer
                         src="/assets/images/tuongbacho.glb"
                         alt="Tượng Bác Hồ"
-                        cameraControls
-                        autoRotate
-                        exposure="1.0"
-                        shadowIntensity="0.4"
-                        disableZoom
-                        style={{ width: '100%', height: '360px' }}
-                        interactionPrompt="none"
+                          cameraControls
+                          autoRotate
+                          exposure="0.6"
+                          shadowIntensity="0.95"
+                          shadowSoftness="0.95"
+                          toneMapping="aces"
+                          environmentImage="neutral"
+                          cameraOrbit="0deg 75deg 95%"
+                          fieldOfView="28deg"
+                          style={{ width: '100%', height: '460px', backgroundColor: 'transparent' }}
+                          interactionPrompt="none"
                         ar
                       />
+                      </div>
                     </div>
                     <p className="text-xs text-muted-foreground mt-2 text-center">
                       Mẫu 3D minh họa — kéo xoay để quan sát.

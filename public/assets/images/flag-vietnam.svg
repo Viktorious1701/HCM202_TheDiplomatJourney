@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" width="1200" height="800" aria-label="Vietnam Flag">
+  <rect width="3" height="2" fill="#DA251D"/>
+  <g transform="translate(1.5,1) scale(0.6)">
+    <polygon fill="#FFDD00" points="0,-1 0.2245,-0.309 0.9511,-0.309 0.3633,0.118 0.5878,0.809 0,0.381 -0.5878,0.809 -0.3633,0.118 -0.9511,-0.309 -0.2245,-0.309"/>
+  </g>
+</svg>
