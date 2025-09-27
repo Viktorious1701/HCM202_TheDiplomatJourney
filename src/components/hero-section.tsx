@@ -14,7 +14,7 @@ export default function HeroSection() {
                         <div className="flex flex-col items-center text-center space-y-8">
                             <div className="max-w-4xl">
                                 <h1 className="text-5xl font-medium md:text-6xl xl:text-7xl text-balance">The Diplomat's Journey</h1>
-                                <p className="mt-8 text-lg text-pretty max-w-2xl mx-auto">Experience the revolutionary path of Ho Chi Minh through key diplomatic missions that shaped Vietnam's independence movement and socialist ideology.</p>
+                                <p className="mt-8 text-lg text-pretty max-w-2xl mx-auto">Trải nghiệm con đường cách mạng Hồ Chí Minh qua các sứ mệnh ngoại giao trọng điểm hình thành phong trào độc lập và tư tưởng xã hội chủ nghĩa ở Việt Nam.</p>
 
                                 <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
                                     <Button
@@ -22,7 +22,7 @@ export default function HeroSection() {
                                         size="lg"
                                         className="px-5 text-base">
                                         <Link to="/game">
-                                            <span className="text-nowrap">Begin Journey</span>
+                                            <span className="text-nowrap">Bắt đầu hành trình</span>
                                         </Link>
                                     </Button>
                                     
@@ -33,7 +33,7 @@ export default function HeroSection() {
                                         variant="outline"
                                         className="px-5 text-base">
                                         <Link to="/leaderboard">
-                                          <span className="text-nowrap">View Leaderboard</span>
+                                          <span className="text-nowrap">Xem bảng xếp hạng</span>
                                         </Link>
                                     </Button>
                                 </div>

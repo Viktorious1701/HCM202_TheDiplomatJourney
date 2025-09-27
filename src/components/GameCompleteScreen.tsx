@@ -38,10 +38,15 @@ export function GameCompleteScreen({ score, time }: GameCompleteScreenProps) {
   const handlePlayAgain = () => {
     resetGame();
     navigate('/game');
-  }
+  };
+
+  const handleReturnToMain = () => {
+    // Reset game state before returning to the main menu.
+    resetGame();
+    navigate('/');
+  };
 
   return (
-    // Added top padding to account for the new fixed navbar.
     <div className="flex justify-center items-center min-h-screen p-4 pt-20">
       <Card className="w-full max-w-md text-center">
         <CardHeader>
@@ -64,8 +69,12 @@ export function GameCompleteScreen({ score, time }: GameCompleteScreenProps) {
           <Button onClick={handleSubmit} className="w-full" disabled={isSubmitting}>
             {isSubmitting ? 'Submitting...' : 'Submit to Leaderboard'}
           </Button>
-          <Button onClick={handlePlayAgain} variant="ghost" className="w-full">
+          <Button onClick={handlePlayAgain} variant="outline" className="w-full">
             Play Again
+          </Button>
+          {/* New button to return to the main page after game completion. */}
+          <Button onClick={handleReturnToMain} variant="ghost" className="w-full">
+            Return to Main Page
           </Button>
         </CardFooter>
       </Card>

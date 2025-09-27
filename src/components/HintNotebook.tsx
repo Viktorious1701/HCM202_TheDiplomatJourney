@@ -8,16 +8,18 @@ interface HintNotebookProps {
 
 export const HintNotebook = ({ hint }: HintNotebookProps) => {
   return (
-    // Styles are updated to fit a non-overlay context, matching the parchment theme.
-    <Card className="mt-4 bg-accent/10 text-foreground border-accent/50">
+    // Changed the default text color from 'foreground' (black) to a distinct sepia brown.
+    <Card className="mt-4 bg-accent/10 text-[#5a412e] border-accent/50">
       <CardHeader>
-        <CardTitle className="flex items-center text-lg text-accent-foreground">
+        {/* The title now uses a darker brown for better contrast and emphasis. */}
+        <CardTitle className="flex items-center text-lg text-[#443122]">
           <Lightbulb className="mr-2 h-5 w-5 text-yellow-600" />
           {hint.tieuDe}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-muted-foreground">{hint.vanBan}</p>
+        {/* The main hint text also uses the new sepia brown color, removing the muted style. */}
+        <p className="text-[#5a412e]">{hint.vanBan}</p>
       </CardContent>
     </Card>
   );

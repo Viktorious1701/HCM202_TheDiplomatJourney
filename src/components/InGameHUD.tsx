@@ -23,6 +23,8 @@ export function InGameHUD() {
         <Button
           size="icon"
           variant="ghost"
+          // Apply custom classes to give the button a dark background and a tan icon color, matching the desired theme.
+          className="bg-foreground text-accent hover:bg-accent hover:text-accent-foreground"
           onClick={() => setIsPanelOpen(true)}
           aria-label="Open notebook"
         >

@@ -138,7 +138,8 @@ export const MissionView = () => {
 
               {currentNode.hint && (
                 <div className="text-center mt-4">
-                  <Button variant="ghost" className="text-foreground hover:bg-accent hover:text-accent-foreground" onClick={() => setShowHint(!showHint)}>
+                  {/* The variant is removed to use the default primary style, and custom color classes are removed. */}
+                  <Button onClick={() => setShowHint(!showHint)}>
                     <BookOpen className="mr-2 h-4 w-4" />
                     {showHint ? "Ẩn Gợi Ý" : "Xem Sổ Tay (Gợi Ý)"}
                   </Button>

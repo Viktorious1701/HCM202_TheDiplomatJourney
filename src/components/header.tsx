@@ -1,35 +1,39 @@
-// path: the-diplomats-journey/src/components/header.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from '@/components/logo';
 import { Menu, X } from 'lucide-react';
 
 // Custom navigation link component that handles both router and anchor links
-const NavLink = ({ href, children, className, ...props }: { 
-  href: string; 
-  children: React.ReactNode; 
-  className?: string;
-  'aria-label'?: string;
+const NavLink = ({ href, children, className, ...props }: {
+    href: string;
+    children: React.ReactNode;
+    className?: string;
+    'aria-label'?: string;
 }) => {
-  if (href.startsWith('#')) {
+    // Use a standard anchor tag for links that are internal page anchors (starting with # or /#).
+    // This ensures the browser handles scrolling to the element correctly, even from other pages.
+    if (href.startsWith('#') || href.startsWith('/#')) {
+        return (
+            <a href={href} className={className} {...props}>
+                {children}
+            </a>
+        );
+    }
     return (
-      <a href={href} className={className} {...props}>
-        {children}
-      </a>
+        <Link to={href} className={className} {...props}>
+            {children}
+        </Link>
     );
-  }
-  return (
-    <Link to={href} className={className} {...props}>
-      {children}
-    </Link>
-  );
 };
 
+// Updated menu items to include AI Disclosure and fix the "Learn More" link.
 const menuItems = [
     { name: 'Missions', href: '/game' },
     { name: 'Timeline', href: '/timeline' },
     { name: 'Presentations', href: '/presentations' },
-    { name: 'Learn More', href: '/about' },
+    // The "Learn More" link now correctly points to the #about section on the homepage.
+    { name: 'Learn More', href: '/#about' },
+    { name: 'AI Disclosure', href: '/ai-disclosure' },
 ];
 
 export const HeroHeader = () => {

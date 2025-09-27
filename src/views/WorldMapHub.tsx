@@ -1,17 +1,27 @@
 import { useGameStore } from '@/stores/gameStore';
 import { Button } from '@/components/ui/button';
-import { BookText, Lock, Check } from 'lucide-react';
+import { BookText, Lock, Check, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useNavigate } from 'react-router-dom';
 
 export const WorldMapHub = () => {
   const currentStoryNode = useGameStore((state) => state.currentStoryNode);
   const makeChoice = useGameStore((state) => state.makeChoice);
   const completedMissions = useGameStore((state) => state.completedMissions);
+  const resetGame = useGameStore((state) => state.resetGame);
+  const navigate = useNavigate();
 
   const currentNode = currentStoryNode();
 
   const handleKnowledgeHubClick = () => {
     alert("This would open the Notebook panel.");
+  };
+
+  const handleQuitGame = () => {
+    // Reset the game state to ensure a fresh start next time.
+    resetGame();
+    // Navigate the user back to the main homepage.
+    navigate('/');
   };
 
   const missionSequence = [
@@ -22,7 +32,6 @@ export const WorldMapHub = () => {
   ];
 
   return (
-    // Added top padding to account for the new fixed navbar.
     <div
       className="relative w-full h-screen bg-cover bg-center flex flex-col items-center justify-center text-center p-4 pt-20"
       style={{ backgroundImage: `url(${currentNode.hinhAnh})` }}
@@ -68,8 +77,14 @@ export const WorldMapHub = () => {
         })}
       </div>
 
-      {/* This button is now redundant as its function is in the main navbar, but is kept for logical consistency. */}
-      {/* In a real project, this might be removed or repurposed. */}
+      {/* Button to quit the game and return to the main page. */}
+      <div className="absolute bottom-6 left-6 z-20">
+        <Button variant="destructive" onClick={handleQuitGame}>
+          <LogOut className="mr-2 h-4 w-4" />
+          Quit Game
+        </Button>
+      </div>
+
       <div className="absolute bottom-6 right-6 z-20 opacity-0 pointer-events-none">
         <Button size="icon" variant="secondary" onClick={handleKnowledgeHubClick}>
           <BookText />
