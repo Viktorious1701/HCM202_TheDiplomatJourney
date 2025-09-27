@@ -18,6 +18,8 @@ export const MissionView = () => {
   const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
   const [flashColor, setFlashColor] = useState<string | null>(null);
   const [isTextVisible, setIsTextVisible] = useState(false);
+  // State to hold the randomized order of choices for the current view.
+  const [shuffledChoices, setShuffledChoices] = useState<Choice[]>([]);
 
   useEffect(() => {
     setIsTextVisible(false);
@@ -26,6 +28,25 @@ export const MissionView = () => {
     }, 1000);
     return () => clearTimeout(timer);
   }, [currentNodeKey]);
+
+  useEffect(() => {
+    // When the current node changes, shuffle its choices and store them in local state.
+    // This ensures the order is random but consistent for the duration of the current screen.
+    if (currentNode?.luaChon) {
+      // Create a copy of the choices array to avoid mutating the original data in the store.
+      const choicesToShuffle = [...currentNode.luaChon];
+
+      // Use the Fisher-Yates shuffle algorithm to randomize the array in place.
+      for (let i = choicesToShuffle.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [choicesToShuffle[i], choicesToShuffle[j]] = [choicesToShuffle[j], choicesToShuffle[i]];
+      }
+      setShuffledChoices(choicesToShuffle);
+    } else {
+      // If the new node has no choices, clear the state.
+      setShuffledChoices([]);
+    }
+  }, [currentNodeKey, currentNode]);
 
   useEffect(() => {
     if (lastChoiceFeedback) {
@@ -85,7 +106,8 @@ export const MissionView = () => {
 
     return (
       <div className="space-y-3">
-        {currentNode.luaChon?.map((choice, index) => (
+        {/* Render the choices from the shuffled state array instead of the original one. */}
+        {shuffledChoices.map((choice, index) => (
           <ChoiceButton
             key={index}
             choice={choice}
@@ -108,7 +130,6 @@ export const MissionView = () => {
         isHardMode && "bg-black/30"
       )} />
 
-      {/* Added top padding to push content below the new fixed navbar. Removed side margin. */}
       <main className="flex-grow flex flex-col md:flex-row p-4 md:p-8 gap-8 z-10 pt-20">
         <div className="w-full md:w-1/2 flex items-center justify-center h-1/2 md:h-auto md:max-h-[calc(100vh-6.5rem)]">
           <img
@@ -126,7 +147,7 @@ export const MissionView = () => {
                 isTextVisible ? "opacity-100" : "opacity-0"
               )}
             >
-              <div className="bg-background/80 p-6 rounded-lg border border-foreground/20 shadow-md mb-6">
+              <div className="bg-background/80 p-6 rounded-lg border-foreground/20 shadow-md mb-6">
                 <h1 className="text-3xl font-bold mb-4 text-foreground drop-shadow-lg">{currentNode.tieuDe}</h1>
                 <p
                   className="text-xl text-foreground/90 leading-relaxed min-h-[100px] drop-shadow-md"
@@ -138,7 +159,6 @@ export const MissionView = () => {
 
               {currentNode.hint && (
                 <div className="text-center mt-4">
-                  {/* The variant is removed to use the default primary style, and custom color classes are removed. */}
                   <Button onClick={() => setShowHint(!showHint)}>
                     <BookOpen className="mr-2 h-4 w-4" />
                     {showHint ? "Ẩn Gợi Ý" : "Xem Sổ Tay (Gợi Ý)"}
