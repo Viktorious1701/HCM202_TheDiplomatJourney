@@ -12,7 +12,9 @@ interface ChapterSection {
 }
 
 // Lightweight wrapper to render the web component without JSX intrinsic type errors
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ModelViewer = (props: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (React as any).createElement('model-viewer', props);
 };
 
@@ -26,7 +28,7 @@ const PresentationPage: React.FC = () => {
   const chapterSections: ChapterSection[] = [
     {
       id: 1,
-      title: "Tư Tưởng Đại Đoàn Kết Toàn Dân Tộc",
+      title: "Vai trò của đại đoàn kết toàn dân tộc",
       content: "Tư tưởng đại đoàn kết toàn dân tộc của Hồ Chí Minh là vấn đề có ý nghĩa chiến lược, quyết định thành công của cách mạng Việt Nam. Đây là vấn đề cơ bản, nhất quán lâu dài và xuyên suốt tiến trình cách mạng. Bác khẳng định: 'Đoàn kết là sức mạnh của chúng ta', 'Đoàn kết, đoàn kết, đại đoàn kết - Thành công, thành công, đại thành công'.",
       keyPoints: [
         "Đại đoàn kết toàn dân tộc là vấn đề có ý nghĩa chiến lược quyết định thành công cách mạng",
@@ -47,7 +49,7 @@ const PresentationPage: React.FC = () => {
     },
     {
       id: 2,
-      title: "Tư Tưởng Đoàn Kết Quốc Tế",
+      title: "Lực lượng của khối đại đoàn kết toàn dân tộc",
       content: "Hồ Chí Minh nhận thức sâu sắc về sự cần thiết phải đoàn kết quốc tế nhằm kết hợp sức mạnh dân tộc với sức mạnh thời đại. Người khẳng định: cách mạng Việt Nam là một bộ phận của cách mạng thế giới, phải tranh thủ sự đồng tình, ủng hộ của bạn bè quốc tế để tạo thành sức mạnh tổng hợp.",
       keyPoints: [
         "Kết hợp sức mạnh dân tộc với sức mạnh thời đại tạo sức mạnh tổng hợp",
@@ -68,7 +70,7 @@ const PresentationPage: React.FC = () => {
     },
     {
       id: 3,
-      title: "Điều Kiện Xây Dựng Khối Đại Đoàn Kết",
+      title: "Điều kiện để xây dựng khối đại đoàn kết toàn dân tộc",
       content: "Để xây dựng khối đại đoàn kết dân tộc, quy tụ được mọi giai cấp, tầng lớp, Hồ Chí Minh đề ra các điều kiện cụ thể: phải lấy lợi ích chung làm điểm quy tụ, đồng thời tôn trọng những lợi ích khác biệt chính đáng; thực hiện dân chủ rộng rãi; có chính sách đoàn kết, tranh thủ phù hợp.",
       keyPoints: [
         "Lấy lợi ích chung làm điểm quy tụ, tôn trọng lợi ích khác biệt chính đáng",
@@ -89,7 +91,7 @@ const PresentationPage: React.FC = () => {
     },
     {
       id: 4,
-      title: "Nguyên Tắc Và Phương Pháp Đoàn Kết",
+      title: "Hình thức, nguyên tắc tổ chức - Mặt trận dân tộc thống nhất",
       content: "Hồ Chí Minh đề ra những nguyên tắc và phương pháp đoàn kết khoa học: đặt lợi ích dân tộc lên trên hết, kết hợp đấu tranh và đoàn kết, vừa cương quyết vừa mềm mại. Người luôn tìm kiếm tiếng nói chung, điểm tương đồng để đoàn kết, đồng thời kiên quyết đấu tranh với những thế lực thù địch.",
       keyPoints: [
         "Đặt lợi ích dân tộc, lợi ích nhân dân lên trên hết",
