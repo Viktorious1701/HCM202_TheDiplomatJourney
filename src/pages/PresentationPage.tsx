@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { HeroHeader } from '@/components/header'
 import Modal from '@/components/ui/modal'
 
@@ -10,6 +10,11 @@ interface ChapterSection {
   examples: string[];
   image?: string;
 }
+
+// Lightweight wrapper to render the web component without JSX intrinsic type errors
+const ModelViewer = (props: any) => {
+  return (React as any).createElement('model-viewer', props);
+};
 
 const PresentationPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<ChapterSection | null>(null);
@@ -307,22 +312,47 @@ const PresentationPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Khái quát tư tưởng đại đoàn kết của Hồ Chí Minh */}
+            {/* Khái quát tư tưởng đại đoàn kết của Hồ Chí Minh + 3D model */}
             <div className="py-4 md:py-8">
               <div className="rounded-xl border bg-gradient-to-br from-primary/5 via-blue-50/30 to-emerald-50/30 p-6 md:p-8">
-                <h3 className="text-xl md:text-2xl font-semibold text-primary mb-4">
-                  Khái quát tư tưởng đại đoàn kết của Hồ Chí Minh
-                </h3>
-                <div className="space-y-4 text-gray-700 leading-relaxed">
-                  <p>
-                    Hồ Chí Minh (1890–1969) là lãnh tụ vĩ đại của dân tộc Việt Nam, nhà tư tưởng lớn, người chủ xướng và phát triển tư tưởng đại đoàn kết toàn dân tộc. Theo tư tưởng Hồ Chí Minh, đại đoàn kết là vấn đề sống còn, là cội nguồn sức mạnh đưa cách mạng Việt Nam đến thành công. Người cho rằng để xây dựng khối đại đoàn kết phải lấy lợi ích chung làm điểm quy tụ, tôn trọng những lợi ích khác biệt chính đáng, kế thừa truyền thống yêu nước, nhân nghĩa, đoàn kết của dân tộc. Hồ Chí Minh nhấn mạnh vai trò then chốt của nhân dân — chủ thể quyết định mọi thắng lợi, đồng thời đề cao sự khoan dung, độ lượng, niềm tin sâu sắc vào nhân dân.
-                  </p>
-                  <p>
-                    Trong suốt sự nghiệp cách mạng, Hồ Chí Minh luôn khuyến khích xây dựng Mặt trận dân tộc thống nhất trên nền tảng liên minh công — nông — trí thức, dưới sự lãnh đạo của Đảng, hoạt động theo nguyên tắc hiệp thương dân chủ. Qua các thời kỳ khác nhau, Mặt trận có thể thay đổi tên gọi nhưng bản chất vẫn không đổi — là nơi quy tụ, tập hợp đông đảo giai cấp, tầng lớp, dân tộc, tôn giáo, đảng phái, tổ chức yêu nước ở trong và ngoài nước vì mục tiêu độc lập dân tộc, hạnh phúc của nhân dân.
-                  </p>
-                  <p>
-                    Tư tưởng đại đoàn kết của Hồ Chí Minh không tách rời với đoàn kết quốc tế, kết hợp sức mạnh dân tộc với sức mạnh thời đại, tạo nên nguồn lực vô địch giúp cách mạng Việt Nam giữ vững độc lập, phát triển và góp phần vào lý luận cách mạng thế giới.
-                  </p>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                  {/* Text content */}
+                  <div className="lg:col-span-7">
+                    <h3 className="text-xl md:text-2xl font-semibold text-primary mb-4">
+                      Khái quát tư tưởng đại đoàn kết của Hồ Chí Minh
+                    </h3>
+                    <div className="space-y-4 text-gray-700 leading-relaxed">
+                      <p>
+                        Hồ Chí Minh (1890–1969) là lãnh tụ vĩ đại của dân tộc Việt Nam, nhà tư tưởng lớn, người chủ xướng và phát triển tư tưởng đại đoàn kết toàn dân tộc. Theo tư tưởng Hồ Chí Minh, đại đoàn kết là vấn đề sống còn, là cội nguồn sức mạnh đưa cách mạng Việt Nam đến thành công. Người cho rằng để xây dựng khối đại đoàn kết phải lấy lợi ích chung làm điểm quy tụ, tôn trọng những lợi ích khác biệt chính đáng, kế thừa truyền thống yêu nước, nhân nghĩa, đoàn kết của dân tộc. Hồ Chí Minh nhấn mạnh vai trò then chốt của nhân dân — chủ thể quyết định mọi thắng lợi, đồng thời đề cao sự khoan dung, độ lượng, niềm tin sâu sắc vào nhân dân.
+                      </p>
+                      <p>
+                        Trong suốt sự nghiệp cách mạng, Hồ Chí Minh luôn khuyến khích xây dựng Mặt trận dân tộc thống nhất trên nền tảng liên minh công — nông — trí thức, dưới sự lãnh đạo của Đảng, hoạt động theo nguyên tắc hiệp thương dân chủ. Qua các thời kỳ khác nhau, Mặt trận có thể thay đổi tên gọi nhưng bản chất vẫn không đổi — là nơi quy tụ, tập hợp đông đảo giai cấp, tầng lớp, dân tộc, tôn giáo, đảng phái, tổ chức yêu nước ở trong và ngoài nước vì mục tiêu độc lập dân tộc, hạnh phúc của nhân dân.
+                      </p>
+                      <p>
+                        Tư tưởng đại đoàn kết của Hồ Chí Minh không tách rời với đoàn kết quốc tế, kết hợp sức mạnh dân tộc với sức mạnh thời đại, tạo nên nguồn lực vô địch giúp cách mạng Việt Nam giữ vững độc lập, phát triển và góp phần vào lý luận cách mạng thế giới.
+                      </p>
+                    </div>
+                  </div>
+                  {/* 3D model viewer */}
+                  <div className="lg:col-span-5">
+                    <div className="rounded-lg border bg-white/60 backdrop-blur-sm p-2">
+                      <ModelViewer
+                        src="/assets/images/tuongbacho.glb"
+                        alt="Tượng Bác Hồ"
+                        cameraControls
+                        autoRotate
+                        exposure="1.0"
+                        shadowIntensity="0.4"
+                        disableZoom
+                        style={{ width: '100%', height: '360px' }}
+                        interactionPrompt="none"
+                        ar
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-2 text-center">
+                      Mẫu 3D minh họa — kéo xoay để quan sát.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
