@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// path: the-diplomats-journey/src/services/leaderboardService.ts
 import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
 import type { LeaderboardEntry, ProgressUpdate, ChatMessage, TypingEvent } from '../types';
 
@@ -29,8 +28,8 @@ function getBroadcastChannel() {
   return broadcastChannel;
 }
 
-// Fetch top 10 (score desc, time asc)
-export const getLeaderboard = async (): Promise<LeaderboardEntry[]> => {
+// Fetch top 10 and return an object containing either data or an error.
+export const getLeaderboard = async (): Promise<{ data: LeaderboardEntry[]; error: Error | null }> => {
   const { data, error } = await supabase
     .from(LEADERBOARD_TABLE)
     .select('name, score, time')
@@ -40,22 +39,20 @@ export const getLeaderboard = async (): Promise<LeaderboardEntry[]> => {
 
   if (error) {
     console.error('Error fetching leaderboard:', error);
-    return [];
+    return { data: [], error: new Error(error.message) };
   }
-  return data || [];
+  return { data: data || [], error: null };
 };
 
-// Subscribes to database changes for the leaderboard table.
-// This provides reliable, eventually-consistent updates.
-export const subscribeLeaderboard = (onChange: (entries: LeaderboardEntry[]) => void): (() => void) => {
+// The subscription callback is now a simple trigger, letting the hook handle the refetch.
+export const subscribeLeaderboard = (onChange: () => void): (() => void) => {
   const channel = supabase
     .channel('public:leaderboard')
     .on(
       'postgres_changes',
       { event: '*', schema: 'public', table: LEADERBOARD_TABLE },
-      async () => {
-        const data = await getLeaderboard();
-        onChange(data);
+      () => {
+        onChange();
       }
     )
     .subscribe((status) => {
@@ -67,26 +64,30 @@ export const subscribeLeaderboard = (onChange: (entries: LeaderboardEntry[]) => 
   };
 };
 
-// Insert a score and broadcast for optimistic UI updates
+// Update addScore to correctly handle the new return type from getLeaderboard.
 export const addScore = async (newEntry: LeaderboardEntry): Promise<LeaderboardEntry[] | null> => {
-  const { error } = await supabase
+  const { error: insertError } = await supabase
     .from(LEADERBOARD_TABLE)
     .insert([newEntry]);
 
-  if (error) {
-    console.error('Error adding score:', error);
+  if (insertError) {
+    console.error('Error adding score:', insertError);
     return null;
   }
 
-  // Sends a broadcast message to all connected clients.
-  // This allows for instant UI updates without waiting for the database to trigger the postgres_changes event.
   getBroadcastChannel().send({
     type: 'broadcast',
     event: 'new-score',
     payload: newEntry,
   });
 
-  return await getLeaderboard();
+  const { data, error: fetchError } = await getLeaderboard();
+  
+  if (fetchError) {
+    return null;
+  }
+  
+  return data;
 };
 
 // Presence channel: track currently online player IDs

@@ -7,9 +7,8 @@ export function LeaderboardHUD() {
   const playerName = useGameStore(s => s.playerName);
   const globalSupport = useGameStore(s => s.globalSupport);
   const reputation = useGameStore(s => s.reputation);
-  const { entries: leaderboard } = useRealtimeLeaderboard();
+  const { entries: leaderboard, loading, error } = useRealtimeLeaderboard();
 
-  // The outer div and header are simplified as they are now contained within the sidebar tabs.
   return (
     <div className="space-y-4">
       <section>
@@ -34,8 +33,19 @@ export function LeaderboardHUD() {
       <section>
         <h4 className="font-semibold text-xs mb-1 tracking-wide text-muted-foreground">All-Time Top 10</h4>
         <div className="max-h-36 overflow-auto rounded border border-border/60 bg-muted/30 text-[11px] divide-y divide-border/40">
-          {leaderboard.length === 0 && <div className="p-2 text-muted-foreground">No scores</div>}
-          {leaderboard.map((e, i) => {
+          {loading && <div className="p-2 text-muted-foreground">Loading...</div>}
+
+          {/* Display a concise error message if the fetch fails. */}
+          {error && (
+            <div className="p-2 text-destructive text-xs">
+              <p className="font-semibold">Error loading leaderboard.</p>
+              <p className="font-mono text-[10px] truncate" title={error}>{error}</p>
+            </div>
+          )}
+
+          {!loading && !error && leaderboard.length === 0 && <div className="p-2 text-muted-foreground">No scores</div>}
+
+          {!loading && !error && leaderboard.map((e, i) => {
             const self = e.name === playerName;
             return (
               <div key={`${e.name}-${e.score}-${e.time}`} className={clsx('grid grid-cols-12 items-center px-2 py-1 gap-1', self && 'bg-primary/15 font-medium')}>

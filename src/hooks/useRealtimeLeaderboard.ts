@@ -5,31 +5,44 @@ import { getLeaderboard, subscribeLeaderboard, supabase, BROADCAST_CHANNEL } fro
 export function useRealtimeLeaderboard() {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let unsubscribeTable = () => {};
     let broadcastChan: ReturnType<typeof supabase.channel> | null = null;
 
     (async () => {
-      // Fetch the initial state of the leaderboard when the component mounts.
-      const initial = await getLeaderboard();
-      setEntries(initial);
+      setLoading(true);
+      // Call the updated service function and handle the new error state.
+      const { data: initialData, error: initialError } = await getLeaderboard();
+      
+      if (initialError) {
+        setError(initialError.message);
+        setEntries([]);
+      } else {
+        setEntries(initialData);
+        setError(null);
+      }
       setLoading(false);
 
-      // Subscribe to database changes. This is the reliable, eventually-consistent channel.
-      // Any insert, update, or delete on the leaderboard table will trigger this.
-      unsubscribeTable = subscribeLeaderboard(setEntries);
+      // The subscription now triggers a refetch that also handles errors.
+      unsubscribeTable = subscribeLeaderboard(async () => {
+        const { data, error: refetchError } = await getLeaderboard();
+        if (refetchError) {
+          setError(refetchError.message);
+        } else if (data) {
+          setEntries(data);
+          setError(null); // Clear previous errors on a successful fetch.
+        }
+      });
 
-      // Subscribe to the broadcast channel for instant, optimistic updates.
-      // This listens for the 'new-score' event sent by the addScore function.
       broadcastChan = supabase
         .channel(BROADCAST_CHANNEL)
         .on('broadcast', { event: 'new-score' }, (payload) => {
           const newEntry = payload.payload as LeaderboardEntry;
-          // Add the new score to the list, sort, and trim to the top 10.
           setEntries(prev => {
             const exists = prev.some(e => e.name === newEntry.name && e.score === newEntry.score && e.time === newEntry.time);
-            if (exists) return prev; // Avoid duplicates if both events arrive close together.
+            if (exists) return prev;
             return [...prev, newEntry]
               .sort((a, b) => b.score - a.score || a.time - b.time)
               .slice(0, 10);
@@ -38,12 +51,11 @@ export function useRealtimeLeaderboard() {
         .subscribe();
     })();
 
-    // Clean up subscriptions when the component unmounts.
     return () => {
       unsubscribeTable();
       if (broadcastChan) supabase.removeChannel(broadcastChan);
     };
   }, []);
 
-  return { entries, loading };
+  return { entries, loading, error };
 }
