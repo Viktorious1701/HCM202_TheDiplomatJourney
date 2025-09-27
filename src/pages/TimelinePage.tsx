@@ -145,7 +145,7 @@ export default function TimelinePage() {
                         {/* Page Header */}
                         <div className="text-center py-8 md:py-12 animate-fade-in">
                             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-balance bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">
-                                Dòng Thời Gian Lịch Sử
+                                TƯ TƯỞNG HỒ CHÍ MINH VỀ ĐOÀN KẾT QUỐC TẾ
                             </h1>
                             <p className="mt-6 md:mt-8 text-base md:text-lg text-pretty max-w-2xl mx-auto opacity-0 animate-slide-up-delayed">
                                 Những khoảnh khắc quan trọng trong hành trình ngoại giao của Hồ Chí Minh và con đường giành độc lập của Việt Nam
