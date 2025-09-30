@@ -49,7 +49,7 @@ const timelineEvents = [
         description: "Hồ Chí Minh và đoàn đại biểu Việt Nam Dân chủ Cộng hòa được nhân dân Ba Lan chào đón nồng nhiệt.",
         image: "/assets/images/Poland.jpg",
         detailContent: {
-            context: "Sau Hiệp định Geneva năm 1954, Việt Nam Dân chủ Cộng hòa đang tìm cách tăng cường mối quan hệ với các nước xã hội chủ nghĩa. Ba Lan, với tư cách là thành viên của Khối Warsaw, đại diện cho một đồng minh quan trọng trong진영 phương Đông.",
+            context: "Sau Hiệp định Geneva năm 1954, Việt Nam Dân chủ Cộng hòa đang tìm cách tăng cường mối quan hệ với các nước xã hội chủ nghĩa. Ba Lan, với tư cách là thành viên của Khối Warsaw, đại diện cho một đồng minh quan trọng trong khối phương Đông.",
             significance: "Chuyến thăm này củng cố vị thế của Việt Nam trong cộng đồng quốc tế xã hội chủ nghĩa và cung cấp hỗ trợ kinh tế và kỹ thuật quan trọng cho Việt Nam Dân chủ Cộng hòa mới thành lập.",
             keyFigures: ["Hồ Chí Minh", "Các quan chức chính phủ Ba Lan", "Nhân dân Ba Lan"],
             outcomes: [
