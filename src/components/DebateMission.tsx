@@ -54,17 +54,17 @@ export const DebateMission = ({ }: DebateMissionProps) => {
   if (showResults) {
     return (
       // The results are now displayed without a card background to fit into the visual novel UI.
-      <div className="text-white">
+      <div className="text-black">
         <h3 className="text-xl font-bold">Kết quả Tranh luận</h3>
-        <p className="text-white/80 mb-4">Đây là phân tích các câu trả lời của bạn.</p>
+        <p className="text-black/80 mb-4">Đây là phân tích các câu trả lời của bạn.</p>
         <div className="space-y-4">
           {debateQuestions.map((q, index) => {
             const userAnswer = answers[index];
             const isCorrect = userAnswer === q.dapAnDung;
             const explanation = currentNode.giaiThich?.find(e => e.id === q.id);
             return (
-              <div key={q.id} className="p-3 border rounded-md bg-black/50 border-white/20">
-                <p className="font-semibold">{q.vanBan}</p>
+              <div key={q.id} className="p-3 border rounded-md bg-black/50 border-white/20 text-black">
+                <p className="font-semibold text-black">{q.vanBan}</p>
                 <div className={`flex items-center mt-2 ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
                   {isCorrect ? <CheckCircle className="mr-2 h-5 w-5" /> : <XCircle className="mr-2 h-5 w-5" />}
                   <span>Bạn đã {userAnswer === 'tanThanh' ? 'Tán thành' : 'Phản đối'}. Câu trả lời {isCorrect ? 'đúng' : 'sai'}.</span>
@@ -80,7 +80,7 @@ export const DebateMission = ({ }: DebateMissionProps) => {
   }
 
   return (
-    <div className={"text-white text-center"}>
+    <div className={"text-foreground text-center"}>
       <p className="text-xl font-semibold mb-6">{currentQuestion.vanBan}</p>
       <div className={`flex justify-center gap-4 ${flash === 'correct' ? 'animate-correct-pulse' : ''} ${flash === 'wrong' ? 'animate-wrong-shake' : ''}`}>
         <Button onClick={() => handleAnswer('tanThanh')} disabled={locked} className="bg-green-600 hover:bg-green-700 disabled:opacity-60 disabled:cursor-not-allowed">
